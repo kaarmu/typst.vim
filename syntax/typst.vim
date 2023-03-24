@@ -8,9 +8,10 @@ if exists("b:current_syntax")
 endif
 
 " Clusters
+syntax cluster typstNumbers contains=typstNumber,typstFloat,typstFraction,typstAngle,typstLength,typstRatio
 syntax cluster typstCommon  contains=typstComment,typstNumber,typstFloat
 syntax cluster typstMarkup  contains=@typstCommon,typstHashBrace,typstHashtag,typstDollar,typstLabel,typstReference,@Spell
-syntax cluster typstCode    contains=@typstCommon,typstParen,typstBrace,typstBracket,typstFuncCall,typstString,typstConstant,typstConditional,typstRepeat,typstKeyword
+syntax cluster typstCode    contains=@typstCommon,@typstNumbers,typstParen,typstBrace,typstBracket,typstFuncCall,typstString,typstConstant,typstConditional,typstRepeat,typstKeyword
 syntax cluster typstMath    contains=@typstCommon,typstHashtag
 
 " Symbols
@@ -48,9 +49,15 @@ syntax region typstString  start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=@Spell
 syntax region typstString  start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=@Spell
 
 " Decimal constant
-syntax match typstNumber "\<\d\+\>"
-" Floating point constant, with dot, optional exponent
-syntax match typstFloat  "\<\d\+\.\d*\>"
+syntax match typstNumber /\v<\d+>/
+" Floating point constant, with dot
+syntax match typstFloat  /\v<\d+\.\d*>/
+" Length constant
+syntax match typstLength    /\v<\d+(\.\d*)(pt|mm|cm|in|em)>/
+syntax match typstAngle     /\v<\d+(\.\d*)(deg|rad)>/
+syntax match typstRatio     /\v<\d+(\.\d*)\%>/
+syntax match typstFraction  /\v<\d+(\.\d*)fr>/
+
 
 " Define the default highlighting.
 highlight default link typstParens           Noise
@@ -68,7 +75,11 @@ highlight default link typstFuncCall         Function
 highlight default link typstLabel            Structure
 highlight default link typstReference        Structure
 highlight default link typstNumber           Number
-highlight default link typstFloat            Float
+highlight default link typstFloat            Number
+highlight default link typstAngle            Number
+highlight default link typstRatio            Number
+highlight default link typstFraction         Number
+highlight default link typstLength           Number
 highlight default link typstOperator         Operator
 highlight default link typstSemiCol          Delimiter
 highlight default link typstString           String
