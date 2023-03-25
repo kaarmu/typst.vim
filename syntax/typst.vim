@@ -53,10 +53,10 @@ syntax match typstNumber /\v<\d+>/
 " Floating point constant, with dot
 syntax match typstFloat  /\v<\d+\.\d*>/
 " Length constant
-syntax match typstLength    /\v<\d+(\.\d*)(pt|mm|cm|in|em)>/
-syntax match typstAngle     /\v<\d+(\.\d*)(deg|rad)>/
-syntax match typstRatio     /\v<\d+(\.\d*)\%>/
-syntax match typstFraction  /\v<\d+(\.\d*)fr>/
+syntax match typstLength    /\v<\d+(\.\d*)?(pt|mm|cm|in|em)>/
+syntax match typstAngle     /\v<\d+(\.\d*)?(deg|rad)>/
+syntax match typstRatio     /\v<\d+(\.\d*)?\%>/
+syntax match typstFraction  /\v<\d+(\.\d*)?fr>/
 
 
 " Define the default highlighting.
