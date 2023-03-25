@@ -19,6 +19,15 @@ end)
 - Restart neovim to reload config
 - Call `:PackerSync`
 
+### lazy.nvim
+```lua
+return {
+  'kaarmu/typst.vim',
+  ft = 'typ',
+  lazy=false,
+}
+```
+
 ### vim-plug
 
 ```vim
