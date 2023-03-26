@@ -11,7 +11,7 @@ endif
 syntax cluster typstNumbers contains=typstNumber,typstFloat,typstFraction,typstAngle,typstLength,typstRatio
 syntax cluster typstCommon  contains=typstComment,typstNumber,typstFloat
 syntax cluster typstMarkup  contains=@typstCommon,typstHashBrace,typstHashtag,typstDollar,typstLabel,typstReference,@Spell
-syntax cluster typstCode    contains=@typstCommon,@typstNumbers,typstParen,typstBrace,typstBracket,typstFuncCall,typstString,typstConstant,typstConditional,typstRepeat,typstKeyword
+syntax cluster typstCode    contains=@typstCommon,@typstNumbers,typstParen,typstBrace,typstBracket,typstFuncCall,typstString,typstConstant,typstConditional,typstRepeat,typstKeyword,typstIdentifier
 syntax cluster typstMath    contains=@typstCommon,typstHashtag
 
 " Symbols
@@ -37,9 +37,12 @@ syntax match typstReference /@\k\+/
 " Function calls
 syntax match typstFuncCall contained /\v\k+%(-+\k+)*\s*[\(\[]@=/
 
+syntax match typstIdentifier contained /\v\k+%(-+\k+)*/
+
 syntax keyword typstConditional if else contained
 syntax keyword typstRepeat while for contained
-syntax keyword typstKeyword let set show import include not in and or contained
+
+syntax keyword typstKeyword let set show import include not in and or return contained
 
 " Other Keywords
 syntax keyword typstConstant contained none auto true false
@@ -72,6 +75,7 @@ highlight default link typstRepeat           Repeat
 highlight default link typstKeyword          Keyword
 highlight default link typstConstant         Constant
 highlight default link typstFuncCall         Function
+highlight default link typstFuncCall         Identifier
 highlight default link typstLabel            Structure
 highlight default link typstReference        Structure
 highlight default link typstNumber           Number
