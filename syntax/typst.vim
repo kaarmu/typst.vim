@@ -39,7 +39,7 @@ syntax match typstFuncCall contained /\v\k+%(-\k+)*\s*[\(\[]@=/
 
 syntax keyword typstConditional if else contained
 syntax keyword typstRepeat while for contained
-syntax keyword typstKeyword let set show import include contained
+syntax keyword typstKeyword let set show import include not in and or contained
 
 " Other Keywords
 syntax keyword typstConstant contained none auto true false
