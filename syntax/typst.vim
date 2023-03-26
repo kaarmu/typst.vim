@@ -37,7 +37,7 @@ syntax match typstReference /@\k\+/
 " Function calls
 syntax match typstFuncCall contained /\v\k+%(-+\k+)*\s*[\(\[]@=/
 
-syntax match typstIdentifier contained /\v\k+%(-+\k+)*/
+syntax match typstIdentifier contained /\v\k+%(-+\k+)*>-@!\s*[\[\(]@!/
 
 syntax keyword typstConditional if else contained
 syntax keyword typstRepeat while for contained
@@ -75,7 +75,7 @@ highlight default link typstRepeat           Repeat
 highlight default link typstKeyword          Keyword
 highlight default link typstConstant         Constant
 highlight default link typstFuncCall         Function
-highlight default link typstFuncCall         Identifier
+highlight default link typstIdentifier       Identifier
 highlight default link typstLabel            Structure
 highlight default link typstReference        Structure
 highlight default link typstNumber           Number
