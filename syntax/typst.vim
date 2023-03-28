@@ -9,7 +9,7 @@ endif
 
 " Clusters
 syntax cluster typstNumbers contains=typstNumber,typstFloat,typstFraction,typstAngle,typstLength,typstRatio
-syntax cluster typstCommon  contains=typstComment,typstNumber,typstFloat
+syntax cluster typstCommon  contains=typstComment,typstCommentBlock,typstNumber,typstFloat
 syntax cluster typstMarkup  contains=@typstCommon,typstHashBrace,typstHashtag,typstDollar,typstLabel,typstReference,@Spell
 syntax cluster typstCode    contains=@typstCommon,@typstNumbers,typstParen,typstBrace,typstBracket,typstFuncCall,typstString,typstConstant,typstConditional,typstRepeat,typstKeyword,typstIdentifier
 syntax cluster typstMath    contains=@typstCommon,typstHashtag
@@ -29,6 +29,7 @@ syntax match  typstOperator contained "+-*/=" " TODO: Add the rest
 " Comments
 syntax keyword typstCommentTodo contained TODO FIXME XXX TBD
 syntax match   typstComment     "//.*$" contains=typstCommentTodo,@Spell
+syntax match   typstCommentBlock "/\*.*\*/" contains=typstCommentTodo,@Spell
 
 " Labels
 syntax match typstLabel /<\k\+>/
@@ -69,6 +70,7 @@ highlight default link typstBrackets         Noise
 highlight default link typstDollars          String
 highlight default link typstHashtags         Keyword
 highlight default link typstComment          Comment
+highlight default link typstCommentBlock     Comment
 highlight default link typstCommentTodo      Todo
 highlight default link typstConditional      Conditional
 highlight default link typstRepeat           Repeat
