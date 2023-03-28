@@ -49,8 +49,8 @@ syntax keyword typstKeyword let set show import include not in and or return con
 syntax keyword typstConstant contained none auto true false
 
 " Strings
-syntax region typstString  start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=@Spell
-syntax region typstString  start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=@Spell
+syntax region typstString contained start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=@Spell
+syntax region typstString contained start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=@Spell
 
 " Decimal constant
 syntax match typstNumber /\v<\d+>/
