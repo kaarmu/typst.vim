@@ -14,6 +14,7 @@ syntax cluster typstMarkup  contains=@typstCommon,typstHashBrace,typstHashtag,ty
 syntax cluster typstCode    contains=@typstCommon,@typstNumbers,typstParen,typstBrace,typstBracket,typstFuncCall,typstString,typstConstant,typstConditional,typstRepeat,typstKeyword,typstIdentifier
 syntax cluster typstMath    contains=@typstCommon,typstHashtag
 
+
 " Symbols
 syntax region typstParen   contained transparent matchgroup=typstParens   start='(' end=')'
 syntax region typstBrace   contained transparent matchgroup=typstBraces   start='{' end='}'                 contains=@typstCode
@@ -32,8 +33,8 @@ syntax match   typstComment     "//.*$" contains=typstCommentTodo,@Spell
 syntax match   typstCommentBlock "/\*.*\*/" contains=typstCommentTodo,@Spell
 
 " Labels
-syntax match typstLabel /<\k\+>/
-syntax match typstReference /@\k\+/
+syntax match typstLabel /<\S\+>/
+syntax match typstReference /@\S\+\s/
 
 " Function calls
 syntax match typstFuncCall contained /\v\k+%(-+\k+)*\s*[\(\[]@=/
@@ -52,6 +53,10 @@ syntax keyword typstConstant contained none auto true false
 syntax region typstString contained start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=@Spell
 syntax region typstString contained start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=@Spell
 
+" Program Code
+syntax match typstMonoCode /`.*`/
+syntax region typstMonoCode start=/```/ end=/```/
+
 " Decimal constant
 syntax match typstNumber /\v<\d+>/
 " Floating point constant, with dot
@@ -61,6 +66,12 @@ syntax match typstLength    /\v<\d+(\.\d*)?(pt|mm|cm|in|em)>/
 syntax match typstAngle     /\v<\d+(\.\d*)?(deg|rad)>/
 syntax match typstRatio     /\v<\d+(\.\d*)?\%>/
 syntax match typstFraction  /\v<\d+(\.\d*)?fr>/
+
+" Headings
+syntax match typstHeading "^=\{1,6}\s.*$"
+
+" List
+syntax match typstList /^[-\|\\+]\s/
 
 
 " Define the default highlighting.
@@ -89,3 +100,6 @@ highlight default link typstLength           Number
 highlight default link typstOperator         Operator
 highlight default link typstSemiCol          Delimiter
 highlight default link typstString           String
+highlight default link typstMonoCode         Macro
+highlight default link typstHeading          Function
+highlight default link typstList             Statement
