@@ -13,7 +13,7 @@ if exists(":CompilerSet") != 2
     command -nargs=* CompilerSet setlocal <args>
 endif
 
-CompilerSet makeprg=typst\ \$*\ \%:S
+CompilerSet makeprg=typst\ compile\ \$*\ \%:S
 " TODO: errorformat
 
 let &cpo = s:save_cpo
