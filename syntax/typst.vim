@@ -12,14 +12,14 @@ syntax cluster typstNumbers contains=typstNumber,typstFloat,typstFraction,typstA
 syntax cluster typstCommon  contains=typstComment,typstCommentBlock,typstNumber,typstFloat
 syntax cluster typstMarkup  contains=@typstCommon,typstHashBrace,typstHashtag,typstDollar,typstLabel,typstReference,@Spell
 syntax cluster typstCode    contains=@typstCommon,@typstNumbers,typstParen,typstBrace,typstBracket,typstFuncCall,typstString,typstConstant,typstConditional,typstRepeat,typstKeyword,typstIdentifier
-syntax cluster typstMath    contains=@typstCommon,typstHashtag
+syntax cluster typstMath    contains=@typstCommon,typstHashtag,typstString
 
 
 " Symbols
 syntax region typstParen   contained transparent matchgroup=typstParens   start='(' end=')'
 syntax region typstBrace   contained transparent matchgroup=typstBraces   start='{' end='}'                 contains=@typstCode
 syntax region typstBracket contained transparent matchgroup=typstBrackets start="\[" end="\]"               contains=@typstMarkup
-syntax region typstDollar            transparent matchgroup=typstDollars  start="\$" end="\$"               contains=@typstMath
+syntax region typstDollar            transparent matchgroup=typstDollars  start="\$" end="\$" skip="\\\$"   contains=@typstMath
 syntax region typstHashtag           transparent matchgroup=typstHashtags start="\#" end=";\|$"he=e-1       contains=@typstCode
 syntax region typstHashBrace         transparent matchgroup=typstHashtags start="\#{" end="}"               contains=@typstCode
 
@@ -72,12 +72,21 @@ syntax match typstHeading "^=\{1,6}\s.*$"
 " List
 syntax match typstList /^[-\|\\+]\s/
 
+" Bold Text
+syntax region typstBold start=/\*/ end=/\*/ skip=/\\\*/
+
+" Italic Text
+syntax region typstItalic start=/_/ end=/_/ skip=/\\_/
+
+" Underlined Text
+syntax region typstUnderline start=/#underline\[/ end=/\]/ skip=/\\\]/
+
 
 " Define the default highlighting.
 highlight default link typstParens           Noise
 highlight default link typstBraces           Noise
 highlight default link typstBrackets         Noise
-highlight default link typstDollars          String
+highlight default link typstDollars          Special
 highlight default link typstHashtags         Keyword
 highlight default link typstComment          Comment
 highlight default link typstCommentBlock     Comment
@@ -102,3 +111,6 @@ highlight default link typstString           String
 highlight default link typstMonoCode         Macro
 highlight default link typstHeading          Function
 highlight default link typstList             Statement
+highlight typstBold cterm=bold gui=bold
+highlight typstItalic cterm=italic gui=italic
+highlight typstUnderline cterm=underline gui=underline
