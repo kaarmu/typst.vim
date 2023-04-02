@@ -122,18 +122,15 @@ syntax cluster typstCodeParens
             \ ,typstCodeDollar
 syntax region typstCodeParen
     \ contained
-    \ start=/\v\(/ms=s+1 end=/\v\)/me=e-1 transparent
+    \ matchgroup=Noise start=/\v\(/ end=/\v\)/
     \ contains=@typstCode
-    " NOTE: CodeParen overlapped HashtagParen somehow so ms/me here is a trick
-    " to fix that
 syntax region typstCodeBrace
     \ contained
-    \ start=/\v\{/ms=s+1 end=/\v\}/me=e-1 transparent
+    \ matchgroup=Noise start=/\v\{/ end=/\v\}/
     \ contains=@typstCode
-    " NOTE: CodeBrace overlapped HashtagBrace somehow so ms/me here is a trick
 syntax region typstCodeBracket
     \ contained
-    \ start=/\v\[/ end=/\v\]/ transparent
+    \ matchgroup=Noise start=/\v\[/ end=/\v\]/
     \ contains=@typstMarkup
 syntax region typstCodeDollar
     \ contained
@@ -198,18 +195,16 @@ syntax cluster typstHashtagParens
             \ ,typstHashtagBracket
             \ ,typstHashtagDollar
 syntax region typstHashtagParen
-    \ start=/\v\#\(/ms=s+1 end=/\v\)/me=e-1 transparent
+    \ matchgroup=Noise start=/\v\#\(/ end=/\v\)/
     \ contains=@typstCode
-    " NOTE: CodeParen overlapped HashtagParen somehow so ms/me here is a trick
 syntax region typstHashtagBrace
-    \ start=/\v\#\{/ms=s+1 end=/\v\}/me=e-1 transparent
+    \ matchgroup=Noise start=/\v\#\{/ end=/\v\}/me=e-1
     \ contains=@typstCode
-    " NOTE: CodeParen overlapped HashtagParen somehow so ms/me here is a trick
 syntax region typstHashtagBracket
-    \ start=/\v\#\[/ end=/\v\]/ transparent
+    \ matchgroup=Noise start=/\v\#\[/ end=/\v\]/
     \ contains=@typstMarkup
 syntax region typstHashtagDollar
-    \ start=/\v\#\$/ end=/\v\$/ transparent
+    \ matchgroup=Noise start=/\v\#\$/ end=/\v\$/
     \ contains=@typstMath
 
 
