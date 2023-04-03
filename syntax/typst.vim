@@ -325,9 +325,6 @@ highlight default link typstMarkupReference         Structure
 highlight default link typstMarkupHeading           Structure
 highlight default link typstMarkupBulletList        Structure
 highlight default link typstMarkupEnumList          Structure
-highlight default link typstMarkupBold              Structure
-highlight default link typstMarkupItalic            Structure
-highlight default link typstMarkupUnderline         Structure
 highlight default link typstMarkupLinebreak         Structure
 highlight default link typstMarkupNonbreakingSpace  Structure
 highlight default link typstMarkupShy               Structure
