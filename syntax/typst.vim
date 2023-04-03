@@ -227,6 +227,13 @@ syntax cluster typstMarkupText
             \ ,typstMarkupBold
             \ ,typstMarkupItalic
             \ ,typstMarkupUnderline
+            \ ,typstMarkupLinebreak
+            \ ,typstMarkupNonbreakingSpace
+            \ ,typstMarkupShy
+            \ ,typstMarkupDash
+            \ ,typstMarkupEllipsis
+            \ ,typstMarkupTermList
+
 syntax match typstMarkupRawInline
     \ /`.*`/
 syntax region typstMarkupRawBlock
@@ -247,7 +254,18 @@ syntax region typstMarkupItalic
     \ start=/_/ skip=/\\_/ end=/_/ oneline
 syntax region typstMarkupUnderline
     \ start=/#underline\[/ skip=/\\\]/ end=/\]/
-
+syntax match typstMarkupLinebreak
+    \ /\\\\/
+syntax match typstMarkupNonbreakingSpace
+    \ /\~/
+syntax match typstMarkupShy
+    \ /-?/
+syntax match typstMarkupDash
+    \ /-\{2,3}/
+syntax match typstMarkupEllipsis
+    \ /\.\.\./
+syntax match typstMarkupTermList
+    \ #\v^\s*\/\s+[^:]*:#
 
 " Markup > Parens {{{2
 syntax cluster typstMarkupParens
@@ -266,51 +284,57 @@ syntax cluster typstMath
 " Highlighting {{{1
 
 " Highlighting > Linked groups {{{2
-highlight default link typstCommentBlock         Comment
-highlight default link typstCommentLine          Comment
-highlight default link typstCommentTodo          Todo
-highlight default link typstCodeConditional      Conditional
-highlight default link typstCodeRepeat           Repeat
-highlight default link typstCodeKeyword          Keyword
-highlight default link typstCodeConstant         Constant
-highlight default link typstCodeNumberInteger    Number
-highlight default link typstCodeNumberFloat      Number
-highlight default link typstCodeNumberLength     Number
-highlight default link typstCodeNumberAngle      Number
-highlight default link typstCodeNumberRatio      Number
-highlight default link typstCodeNumberFraction   Number
-highlight default link typstCodeString           String
-highlight default link typstCodeStatementWord    Statement
-highlight default link typstCodeIdentifier       Identifier
-highlight default link typstCodeFieldAccess      Identifier
-highlight default link typstCodeFunction         Function
-highlight default link typstCodeParen            Noise
-highlight default link typstCodeBrace            Noise
-highlight default link typstCodeBracket          Noise
-highlight default link typstCodeDollar           Noise
-highlight default link typstHashtagConditional   Conditional
-highlight default link typstHashtagRepeat        Repeat
-highlight default link typstHashtagKeyword       Keyword
-highlight default link typstHashtagConstant      Constant
-highlight default link typstHashtagStatementWord Statement
-highlight default link typstHashtagIdentifier    Identifier
-highlight default link typstHashtagFieldAccess   Identifier
-highlight default link typstHashtagFunction      Function
-highlight default link typstHashtagParen         Noise
-highlight default link typstHashtagBrace         Noise
-highlight default link typstHashtagBracket       Noise
-highlight default link typstHashtagDollar        Noise
-highlight default link typstMarkupRawInline      Macro
-highlight default link typstMarkupRawBlock       Macro
-highlight default link typstMarkupLabel          Structure
-highlight default link typstMarkupReference      Structure
-highlight default link typstMarkupHeading        Structure
-highlight default link typstMarkupBulletList     Structure
-highlight default link typstMarkupEnumList       Structure
-highlight default link typstMarkupBold           Structure
-highlight default link typstMarkupItalic         Structure
-highlight default link typstMarkupUnderline      Structure
-highlight default link typstMarkupDollar         Noise
+highlight default link typstCommentBlock            Comment
+highlight default link typstCommentLine             Comment
+highlight default link typstCommentTodo             Todo
+highlight default link typstCodeConditional         Conditional
+highlight default link typstCodeRepeat              Repeat
+highlight default link typstCodeKeyword             Keyword
+highlight default link typstCodeConstant            Constant
+highlight default link typstCodeNumberInteger       Number
+highlight default link typstCodeNumberFloat         Number
+highlight default link typstCodeNumberLength        Number
+highlight default link typstCodeNumberAngle         Number
+highlight default link typstCodeNumberRatio         Number
+highlight default link typstCodeNumberFraction      Number
+highlight default link typstCodeString              String
+highlight default link typstCodeStatementWord       Statement
+highlight default link typstCodeIdentifier          Identifier
+highlight default link typstCodeFieldAccess         Identifier
+highlight default link typstCodeFunction            Function
+highlight default link typstCodeParen               Noise
+highlight default link typstCodeBrace               Noise
+highlight default link typstCodeBracket             Noise
+highlight default link typstCodeDollar              Noise
+highlight default link typstHashtagConditional      Conditional
+highlight default link typstHashtagRepeat           Repeat
+highlight default link typstHashtagKeyword          Keyword
+highlight default link typstHashtagConstant         Constant
+highlight default link typstHashtagStatementWord    Statement
+highlight default link typstHashtagIdentifier       Identifier
+highlight default link typstHashtagFieldAccess      Identifier
+highlight default link typstHashtagFunction         Function
+highlight default link typstHashtagParen            Noise
+highlight default link typstHashtagBrace            Noise
+highlight default link typstHashtagBracket          Noise
+highlight default link typstHashtagDollar           Noise
+highlight default link typstMarkupRawInline         Macro
+highlight default link typstMarkupRawBlock          Macro
+highlight default link typstMarkupLabel             Structure
+highlight default link typstMarkupReference         Structure
+highlight default link typstMarkupHeading           Structure
+highlight default link typstMarkupBulletList        Structure
+highlight default link typstMarkupEnumList          Structure
+highlight default link typstMarkupBold              Structure
+highlight default link typstMarkupItalic            Structure
+highlight default link typstMarkupUnderline         Structure
+highlight default link typstMarkupLinebreak         Structure
+highlight default link typstMarkupNonbreakingSpace  Structure
+highlight default link typstMarkupShy               Structure
+highlight default link typstMarkupDash              Structure
+highlight default link typstMarkupEllipsis          Structure
+highlight default link typstMarkupTermList          Structure
+highlight default link typstMarkupDollar            Noise
 
 " Highlighting > Typst Styling {{{2
 highlight default typstMarkupBold           cterm=bold      gui=bold
