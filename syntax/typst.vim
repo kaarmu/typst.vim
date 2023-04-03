@@ -96,10 +96,10 @@ syntax cluster typstCodeIdentifiers
             \ ,typstCodeFieldAccess
 syntax match typstCodeIdentifier
     \ contained
-    \ /\v\k+%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
 syntax match typstCodeFieldAccess
     \ contained
-    \ /\v\k+%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Code > Functions {{{2
@@ -176,9 +176,9 @@ syntax cluster typstHashtagIdentifiers
     \ contains=typstHashtagIdentifier
             \ ,typstHashtagFieldAccess
 syntax match typstHashtagIdentifier
-    \ /\v#\k+%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v#\K\k%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
 syntax match typstHashtagFieldAccess
-    \ /\v#\k+%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v#\K\k%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Hashtag > Functions {{{2
