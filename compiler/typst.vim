@@ -14,6 +14,7 @@ if exists(":CompilerSet") != 2
 endif
 
 let &l:makeprg = current_compiler
+    \ . ' ' . 'compile'
     \ . ' ' . shellescape(expand('%*'))
     \ . ' 2>&1 \| sed ' . shellescape('s/\x1B\[\([0-9]\+;\)*[0-9]\+m//g')
 
