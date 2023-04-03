@@ -107,7 +107,7 @@ syntax cluster typstCodeFunctions
     \ contains=typstCodeFunction
 syntax match typstCodeFunction
     \ contained
-    \ /\v\k+%(-+\k+)*[\(\[]@=/
+    \ /\v\K\k*%(-+\k+)*[\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 syntax match typstCodeFunctionArgument
     \ contained
@@ -176,16 +176,16 @@ syntax cluster typstHashtagIdentifiers
     \ contains=typstHashtagIdentifier
             \ ,typstHashtagFieldAccess
 syntax match typstHashtagIdentifier
-    \ /\v#\K\k%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v#\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
 syntax match typstHashtagFieldAccess
-    \ /\v#\K\k%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v#\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Hashtag > Functions {{{2
 syntax cluster typstHashtagFunctions
     \ contains=typstHashtagFunction
 syntax match typstHashtagFunction
-    \ /\v#\k+%(-+\k+)*[\(\[]@=/
+    \ /\v#\K\k*%(-+\k+)*[\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 
 " Hashtag > Parens {{{2
