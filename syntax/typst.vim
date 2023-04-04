@@ -247,10 +247,10 @@ syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
-syntax region typstMarkupBold
-    \ start=/\*/ skip=/\\\*/ end=/\*/ oneline
-syntax region typstMarkupItalic
-    \ start=/_/ skip=/\\_/ end=/_/ oneline
+syn region typstMarkupItalic
+    \ matchgroup=typstMarkupItalicDelimiter start=/\w\@<!_\S\@=/ skip=/\\_/ end=/\S\@<=_\w\@!\|^$/
+syn region typstMarkupBold
+    \ matchgroup=typstMarkupBoldDelimiter start=/\*\S\@=/ skip=/\\\*/ end=/\S\@<=\*\|^$/
 syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
@@ -329,10 +329,12 @@ highlight default link typstMarkupEllipsis          Structure
 highlight default link typstMarkupTermList          Structure
 highlight default link typstMarkupDollar            Noise
 
-" Highlighting > Typst Styling {{{2
-highlight default typstMarkupBold           cterm=bold      gui=bold
-highlight default typstMarkupItalic         cterm=italic    gui=italic
-highlight default typstMarkupHeading        cterm=underline gui=underline
+" Highlighting > Markdown Styling {{{2
+highlight default link typstMarkupBold                  markdownBold
+highlight default link typstMarkupBoldDelimiter         markdownBoldDelimiter
+highlight default link typstMarkupItalic                markdownItalic
+highlight default link typstMarkupItalicDelimiter       markdownItalicDelimiter
+highlight default link typstMarkupHeading               markdownUnderline
 
 
 " vim: foldlevel=0 tabstop=8 shiftwidth=4 softtabstop=4 expandtab
