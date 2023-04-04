@@ -226,7 +226,6 @@ syntax cluster typstMarkupText
             \ ,typstMarkupEnumList
             \ ,typstMarkupBold
             \ ,typstMarkupItalic
-            \ ,typstMarkupUnderline
             \ ,typstMarkupLinebreak
             \ ,typstMarkupNonbreakingSpace
             \ ,typstMarkupShy
@@ -252,8 +251,6 @@ syntax region typstMarkupBold
     \ start=/\*/ skip=/\\\*/ end=/\*/ oneline
 syntax region typstMarkupItalic
     \ start=/_/ skip=/\\_/ end=/_/ oneline
-syntax region typstMarkupUnderline
-    \ start=/#underline\[/ skip=/\\\]/ end=/\]/
 syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
@@ -322,7 +319,6 @@ highlight default link typstMarkupRawInline         Macro
 highlight default link typstMarkupRawBlock          Macro
 highlight default link typstMarkupLabel             Structure
 highlight default link typstMarkupReference         Structure
-highlight default link typstMarkupHeading           Structure
 highlight default link typstMarkupBulletList        Structure
 highlight default link typstMarkupEnumList          Structure
 highlight default link typstMarkupLinebreak         Structure
@@ -336,6 +332,7 @@ highlight default link typstMarkupDollar            Noise
 " Highlighting > Typst Styling {{{2
 highlight default typstMarkupBold           cterm=bold      gui=bold
 highlight default typstMarkupItalic         cterm=italic    gui=italic
-highlight default typstMarkupUnderline      cterm=underline gui=underline
+highlight default typstMarkupHeading        cterm=underline gui=underline
+
 
 " vim: foldlevel=0 tabstop=8 shiftwidth=4 softtabstop=4 expandtab
