@@ -20,7 +20,8 @@ setlocal formatoptions+=croq
 setlocal suffixesadd=.typ
 
 " FIXME: quick hack for #11
-function! TypstWatch() abort
+" this will introduce the jobstart/job_start problem with neovim/vim
+function! TypstWatch()
     " Prepare command
     let l:cmd = 'typst watch % --open'
     let l:str = has('win32')
@@ -28,7 +29,11 @@ function! TypstWatch() abort
           \ : ['sh', '-c', l:cmd]
 
     " Execute command and toggle status
-    call job_start(expand(l:str))
+    if has('nvim')
+        let s:watcher = jobstart(expand(l:str))
+    else
+        let s:watcher = job_start(expand(l:str))
+    endif
 endfunction
 command! -buffer TypstWatch call TypstWatch()
 
