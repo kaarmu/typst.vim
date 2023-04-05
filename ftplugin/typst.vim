@@ -26,7 +26,7 @@ function! TypstWatch()
     let l:cmd = 'typst watch % --open'
     let l:str = has('win32')
           \ ? 'cmd /s /c "' . l:cmd . '"'
-          \ : ['sh', '-c', l:cmd]
+          \ : 'sh -c "' . l:cmd . '"'
 
     " Execute command and toggle status
     if has('nvim')
