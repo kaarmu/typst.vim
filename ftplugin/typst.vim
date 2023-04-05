@@ -23,16 +23,16 @@ setlocal suffixesadd=.typ
 " this will introduce the jobstart/job_start problem with neovim/vim
 function! TypstWatch()
     " Prepare command
-    let l:cmd = 'typst watch % --open'
+    let l:cmd = 'typst watch ' . expand('%') . ' --open'
     let l:str = has('win32')
           \ ? 'cmd /s /c "' . l:cmd . '"'
           \ : 'sh -c "' . l:cmd . '"'
 
     " Execute command and toggle status
     if has('nvim')
-        let s:watcher = jobstart(expand(l:str))
+        let s:watcher = jobstart(l:str)
     else
-        let s:watcher = job_start(expand(l:str))
+        let s:watcher = job_start(l:str)
     endif
 endfunction
 command! -buffer TypstWatch call TypstWatch()
