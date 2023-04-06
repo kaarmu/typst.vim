@@ -140,11 +140,11 @@ syntax region typstCodeDollar
 
 " Hashtag {{{1
 syntax cluster typstHashtag
-    \ contains=typstHashtagKeywords
-            \ ,typstHashtagConstants
-            \ ,typstHashtagIdentifiers
-            \ ,typstHashtagFunctions
-            \ ,typstHashtagParens
+    \ contains=@typstHashtagKeywords
+            \ ,@typstHashtagConstants
+            \ ,@typstHashtagIdentifiers
+            \ ,@typstHashtagFunctions
+            \ ,@typstHashtagParens
 
 " Hashtag > Keywords {{{2
 syntax cluster typstHashtagKeywords
