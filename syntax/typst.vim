@@ -198,7 +198,7 @@ syntax region typstHashtagParen
     \ matchgroup=Noise start=/\v\#\(/ end=/\v\)/
     \ contains=@typstCode
 syntax region typstHashtagBrace
-    \ matchgroup=Noise start=/\v\#\{/ end=/\v\}/me=e-1
+    \ matchgroup=Noise start=/\v\#\{/ end=/\v\}/
     \ contains=@typstCode
 syntax region typstHashtagBracket
     \ matchgroup=Noise start=/\v\#\[/ end=/\v\]/
