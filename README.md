@@ -1,17 +1,19 @@
 # typst.vim
 
-*OBS* Work In Progress. I am applying the 80/20 rule in this project since 
-I prefer to have something now rather than waiting for everthing later.
+*OBS: Work In Progress*
 
 (Neo)vim plugin for [Typst](https://typst.app).
 
+I am applying the 80/20 rule in this project since I prefer to have
+something now rather than waiting for everthing later.
+
 ## Features
 
-*(Existing)*
+**Existing**
 - Vim syntax highlighting.
 - Compile the active document with `:make`.
 
-*(Possible features)*
+**Possible features**
 - Formatting using [this](https://github.com/astrale-sharp/typst-fmt/)?
 - Even better highlighting for neovim using treesitter?
 
@@ -55,7 +57,7 @@ call plug#end()
 
 ## Usage
 
-*:TypstWatch* - Watches your document and recompiles on change; also opens the document with your default pdf viewer.
+`:TypstWatch` - Watches your document and recompiles on change; also opens the document with your default pdf viewer.
 
 ## Tips
 
