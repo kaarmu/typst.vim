@@ -1,8 +1,9 @@
 # typst.vim
 
-*OBS* Work In Progress
+*OBS* Work In Progress. I am applying the 80/20 rule in this project since 
+I prefer to have something now rather than waiting for everthing later.
 
-File detection and syntax highlighting for [Typst](https://typst.app).
+(Neo)vim plugin for [Typst](https://typst.app).
 
 ## Features
 
@@ -13,6 +14,9 @@ File detection and syntax highlighting for [Typst](https://typst.app).
 *(Possible features)*
 - Formatting using [this](https://github.com/astrale-sharp/typst-fmt/)?
 - Even better highlighting for neovim using treesitter?
+
+Do you miss anything from other packages, e.g. `vimtex`, create an issue 
+and I'll probably add it!
 
 ## Installation
 
@@ -48,6 +52,10 @@ call plug#end()
 
 - Restart (neo)vim to reload config
 - Call `:PlugInstall`
+
+## Usage
+
+*:TypstWatch* - Watches your document and recompiles on change; also opens the document with your default pdf viewer.
 
 ## Tips
 
