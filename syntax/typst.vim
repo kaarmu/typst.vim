@@ -336,7 +336,7 @@ highlight default link typstMarkupItalic                markdownItalic
 highlight default link typstMarkupItalicDelimiter       markdownItalicDelimiter
 
 " Highlighting > Custom Styling {{{2
-highlight default link typstMarkupHeading               cterm=underline gui=underline
+highlight default typstMarkupHeading                    cterm=underline gui=underline
 
 
 " vim: foldlevel=0 tabstop=8 shiftwidth=4 softtabstop=4 expandtab
