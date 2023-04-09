@@ -9,6 +9,9 @@ something now rather than waiting for everthing later.
 
 ## Features
 
+![image](https://user-images.githubusercontent.com/19633647/230785889-0d449fc3-747b-4183-b00b-14c0ea8dd590.png)
+*Editing [typst-palette](https://github.com/kaarmu/typst-palette) in Vim with the gruvbox colorscheme*
+
 **Existing**
 - Vim syntax highlighting.
 - Compile the active document with `:make`.
