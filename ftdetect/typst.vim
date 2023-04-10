@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.typ set filetype=typst
+autocmd! BufRead,BufNewFile *.typ set filetype=typst
