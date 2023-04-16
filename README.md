@@ -30,7 +30,7 @@ and I'll probably add it!
 ```lua
 require('packer').startup(function(use)
 
-    use {'kaarmu/typst.vim', ft = {'typ'}}
+    use {'kaarmu/typst.vim', ft = {'typst'}}
 
 end)
 ```
@@ -42,7 +42,7 @@ end)
 ```lua
 return {
   'kaarmu/typst.vim',
-  ft = 'typ',
+  ft = 'typst',
   lazy=false,
 }
 ```
