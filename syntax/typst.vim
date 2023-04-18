@@ -81,7 +81,7 @@ syntax match typstCodeNumberAngle
     \ /\v<\d+(\.\d*)?(deg|rad)>/
 syntax match typstCodeNumberRatio
     \ contained
-    \ /\v<\d+(\.\d*)?\%>/
+    \ /\v<\d+(\.\d*)?\%/
 syntax match typstCodeNumberFraction
     \ contained
     \ /\v<\d+(\.\d*)?fr>/
@@ -90,16 +90,16 @@ syntax region typstCodeString
     \ start=/"/ skip=/\v\\\\|\\"/ end=/"/
     \ contains=@Spell
 
-" Code > Identifiers {{{2
+" Code > Identifiers- {{{2
 syntax cluster typstCodeIdentifiers
     \ contains=typstCodeIdentifier
             \ ,typstCodeFieldAccess
 syntax match typstCodeIdentifier
     \ contained
-    \ /\v\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v\K%(\k*-*)*(<%(let|set|show|import|include))@<![\.\[\(]@!/
 syntax match typstCodeFieldAccess
     \ contained
-    \ /\v\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v\K%(\k*-*)*(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Code > Functions {{{2
@@ -107,7 +107,7 @@ syntax cluster typstCodeFunctions
     \ contains=typstCodeFunction
 syntax match typstCodeFunction
     \ contained
-    \ /\v\K\k*%(-+\k+)*[\(\[]@=/
+    \ /\v\K%(\k*-*)*[\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 syntax match typstCodeFunctionArgument
     \ contained
@@ -176,16 +176,16 @@ syntax cluster typstHashtagIdentifiers
     \ contains=typstHashtagIdentifier
             \ ,typstHashtagFieldAccess
 syntax match typstHashtagIdentifier
-    \ /\v#\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v#\K%(\k*-*)*(<%(let|set|show|import|include))@<![\.\[\(]@!/
 syntax match typstHashtagFieldAccess
-    \ /\v#\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v#\K%(\k*-*)*>(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Hashtag > Functions {{{2
 syntax cluster typstHashtagFunctions
     \ contains=typstHashtagFunction
 syntax match typstHashtagFunction
-    \ /\v#\K\k*%(-+\k+)*[\(\[]@=/
+    \ /\v#\K%(\k*-*)*[\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 
 " Hashtag > Parens {{{2
@@ -238,9 +238,9 @@ syntax match typstMarkupRawInline
 syntax region typstMarkupRawBlock
     \ start=/```/ end=/```/
 syntax match typstMarkupLabel
-    \ /<\S\+>/
+    \ /\v\<\K%(\k*-*)*\>/
 syntax match typstMarkupReference
-    \ /@\S\+\s/
+    \ /\v\@\K%(\k*-*)*/
 syntax match typstMarkupHeading
     \ /^=\{1,6}\s.*$/
 syntax match typstMarkupBulletList
