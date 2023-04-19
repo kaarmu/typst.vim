@@ -19,7 +19,7 @@ setlocal formatoptions+=croq
 
 setlocal suffixesadd=.typ
 
-command! -buffer TypstWatch call typst#TypstWatch()
+command! -nargs=* -buffer TypstWatch call typst#TypstWatch(<f-args>)
 
 let &cpo = s:cpo_orig
 unlet s:cpo_orig
