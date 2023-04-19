@@ -7,6 +7,8 @@ if exists("b:current_syntax")
   finish
 endif
 
+syntax sync fromstart
+
 " Common {{{1
 syntax cluster typstCommon
     \ contains=@typstComment
