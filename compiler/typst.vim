@@ -14,7 +14,7 @@ if exists(":CompilerSet") != 2
 endif
 
 let s:filter_step = ['sed',
-                    \shellescape('s/\x1B\[\([0-9]\+;\)*[0-9]\+m//g')]
+                    \shellescape('s/\\x1B\\[\\([0-9]\\+;\\)*[0-9]\\+m//g')]
 
 if has('patch-7.4.191')
     let s:compile_step = [current_compiler, 'compile', '%:S']
