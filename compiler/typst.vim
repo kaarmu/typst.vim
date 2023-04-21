@@ -4,7 +4,7 @@
 if exists("current_compiler")
     finish
 endif
-let current_compiler = "typst"
+let current_compiler = g:typst_cmd
 
 let s:save_cpo = &cpo
 set cpo&vim
