@@ -5,7 +5,7 @@ function! typst#TypstWatch(...)
     " NOTE: added arguments #23 but they will always be like
     " `typst <args> watch <file> --open` so in the future this might be
     " sensitive to in which order typst options should come.
-    let l:cmd = 'typst'
+    let l:cmd = g:typst_cmd
         \ . ' ' . join(a:000)
         \ . ' watch'
         \ . ' ' . expand('%')

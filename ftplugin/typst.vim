@@ -3,6 +3,10 @@ if exists("b:did_ftplugin")
   finish
 endif
 
+if !exists('g:typst_cmd')
+    let g:typst_cmd = "typst"
+endif
+
 let b:did_ftplugin = 1
 
 let s:cpo_orig = &cpo
