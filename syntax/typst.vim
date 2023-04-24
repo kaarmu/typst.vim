@@ -8,6 +8,7 @@ if exists("b:current_syntax")
 endif
 
 syntax sync fromstart
+syntax spell toplevel
 
 " Common {{{1
 syntax cluster typstCommon
@@ -213,6 +214,7 @@ syntax region typstHashtagDollar
 " Markup {{{1
 syntax cluster typstMarkup
     \ contains=@typstCommon
+            \ ,@Spell
             \ ,@typstHashtag
             \ ,@typstMarkupText
             \ ,@typstMarkupParens
