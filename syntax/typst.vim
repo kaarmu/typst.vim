@@ -333,14 +333,16 @@ highlight default link typstMarkupEllipsis          Structure
 highlight default link typstMarkupTermList          Structure
 highlight default link typstMarkupDollar            Noise
 
-" Highlighting > Markdown Styling {{{2
-highlight default link typstMarkupBold                  markdownBold
-highlight default link typstMarkupBoldDelimiter         markdownBoldDelimiter
-highlight default link typstMarkupItalic                markdownItalic
-highlight default link typstMarkupItalicDelimiter       markdownItalicDelimiter
-
 " Highlighting > Custom Styling {{{2
-highlight default typstMarkupHeading                    cterm=underline,bold gui=underline,bold
+highlight default typstMarkupHeading                    term=underline,bold     cterm=underline,bold    gui=underline,bold
+highlight default typstMarkupBold                       term=bold               cterm=bold              gui=bold
+highlight default typstMarkupItalic                     term=italic             cterm=italic            gui=italic
 
+highlight default link typstMarkupBoldDelimiter         typstMarkupBold
+highlight default link typstMarkupItalicDelimiter       typstMarkupItalic
+
+" }}}1
+
+let b:current_syntax = "typst"
 
 " vim: foldlevel=0 tabstop=8 shiftwidth=4 softtabstop=4 expandtab
