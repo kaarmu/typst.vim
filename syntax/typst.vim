@@ -238,7 +238,7 @@ syntax cluster typstMarkupText
             \ ,typstMarkupTermList
 
 syntax match typstMarkupRawInline
-    \ /`.*`/
+    \ /`.\{-}`/
 syntax region typstMarkupRawBlock
     \ start=/```/ end=/```/
 syntax match typstMarkupLabel
