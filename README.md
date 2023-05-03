@@ -69,5 +69,6 @@ call plug#end()
 If you are using `neovim` you can install [typst-lsp](https://github.com/nvarner/typst-lsp).
 There exist a server configuration in `nvim-lspconfig` so it should be easy to set it up. The
 config currently requires that you're working in a git repo. Once the neovim+LSP recognizes
-the file the LSP will compile your document while you write (almost like a wysiwyg!).
+the file the LSP will compile your document while you write (almost like a wysiwyg!). By default
+it will compile on save but you can set it to compile-on-write as well.
 
