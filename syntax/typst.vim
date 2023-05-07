@@ -18,7 +18,7 @@ syntax cluster typstCommon
 syntax cluster typstComment
     \ contains=typstCommentBlock,typstCommentLine
 syntax match typstCommentBlock
-    \ #/\*\_.*\*/#
+    \ #/\*\%(\_.\{-}\)\*/#
     \ contains=typstCommentTodo,@Spell
 syntax match typstCommentLine
     \ #//.*$#
