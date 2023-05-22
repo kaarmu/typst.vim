@@ -15,13 +15,14 @@ something now rather than waiting for everthing later.
 **Existing**
 - Vim syntax highlighting.
 - Compile the active document with `:make`.
+- Basic concealing for italic and bold (more to come). You must `set conceallevel=2` for this to work.
 
 **Possible features**
 - Formatting using [this](https://github.com/astrale-sharp/typst-fmt/)?
 - Even better highlighting for neovim using treesitter?
 
-Do you miss anything from other packages, e.g. `vimtex`, create an issue 
-and I'll probably add it!
+Do you miss anything from other packages, e.g. `vimtex`, create an issue
+and I'll probably add it! Also feel free to make a PR!
 
 ## Installation
 
