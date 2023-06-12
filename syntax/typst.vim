@@ -253,10 +253,10 @@ syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
 syn region typstMarkupItalic
     \ matchgroup=typstMarkupItalicDelimiter start=/\w\@<!_\S\@=/ skip=/\\_/ end=/\S\@<=_\w\@!\|^$/
-    \ concealends
+    \ concealends contains=typstMarkupLabel,typstMarkupBold
 syn region typstMarkupBold
     \ matchgroup=typstMarkupBoldDelimiter start=/\*\S\@=/ skip=/\\\*/ end=/\S\@<=\*\|^$/
-    \ concealends
+    \ concealends contains=typstMarkupLabel,typstMarkupItalic
 syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
