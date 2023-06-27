@@ -247,6 +247,7 @@ syntax match typstMarkupReference
     \ /\v\@\K%(\k*-*)*/
 syntax match typstMarkupHeading
     \ /^\s*\zs=\{1,6}\s.*$/
+    \ contains=typstMarkupLabel
 syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
