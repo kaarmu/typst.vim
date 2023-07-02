@@ -10,6 +10,50 @@ endif
 syntax sync fromstart
 syntax spell toplevel
 
+" Utilities {{{1
+
+" Embed Code Block With Language {{{2
+" This section is copied and modified from 'vim-pandoc-syntax'.
+
+function! EnableEmbedsforCodeblocksWithLang(entry)
+    " prevent embedded language syntaxes from changing 'foldmethod'
+    if has('folding')
+        let s:foldmethod = &l:foldmethod
+        let s:foldtext = &l:foldtext
+    endif
+
+    try
+        let s:langname = matchstr(a:entry, '^[^=]*')
+        let s:langsyntaxfile = matchstr(a:entry, '[^=]*$')
+        unlet! b:current_syntax
+
+        let l:clustername = '@' . toupper(s:langname)
+        let l:syntaxfile = 'syntax/' . s:langsyntaxfile . '.vim'
+
+        execute join(['syntax', 'include', l:clustername, l:syntaxfile])
+        " We might have just turned off spellchecking by including the file,
+        " so we turn it back on here.
+        execute 'syntax spell toplevel'
+
+        execute join(['syntax', 'region', 'typstMarkupRawBlock_' . s:langname,
+                     \'start=/```' . s:langname . '/', 'end=/```/',
+                     \'contained', 'containedin=typstMarkupRawBlock',
+                     \'contains=' . l:clustername])
+    catch /E484/
+      echo "No syntax file found for '" . s:langsyntaxfile . "'"
+    endtry
+
+    if exists('s:foldmethod') && s:foldmethod !=# &l:foldmethod
+        let &l:foldmethod = s:foldmethod
+    endif
+    if exists('s:foldtext') && s:foldtext !=# &l:foldtext
+        let &l:foldtext = s:foldtext
+    endif
+endfunction
+
+command! -buffer -nargs=1 -complete=syntax TypstHighlight call EnableEmbedsforCodeblocksWithLang(<f-args>)
+command! -buffer -nargs=1 -complete=syntax TypstUnhighlight call DisableEmbedsforCodeblocksWithLang(<f-args>)
+
 " Common {{{1
 syntax cluster typstCommon
     \ contains=@typstComment
