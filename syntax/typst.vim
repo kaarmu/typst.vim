@@ -114,7 +114,7 @@ syntax match typstCodeFunction
     \ nextgroup=typstCodeFunctionArgument
 syntax match typstCodeFunctionArgument
     \ contained
-    \ /\v%(.{-}%(\(.{-}\)|\[.{-}\]|\{.{-}\}))*/ transparent
+    \ /\v%(%(\(.{-}\)|\[.{-}\]|\{.{-}\}))*/ transparent
     \ contains=@typstCode
 
 " Code > Parens {{{2
