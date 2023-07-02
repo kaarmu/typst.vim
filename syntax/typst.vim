@@ -225,6 +225,7 @@ syntax cluster typstMarkupText
             \ ,typstMarkupRawBlock
             \ ,typstMarkupLabel
             \ ,typstMarkupReference
+            \ ,typstMarkupUrl
             \ ,typstMarkupHeading
             \ ,typstMarkupBulletList
             \ ,typstMarkupEnumList
@@ -245,6 +246,8 @@ syntax match typstMarkupLabel
     \ /\v\<\K%(\k*-*)*\>/
 syntax match typstMarkupReference
     \ /\v\@\K%(\k*-*)*/
+syntax match typstMarkupUrl
+    \ /http[s]\?:\/\/[[:alnum:]%\/_#.-]*/
 syntax match typstMarkupHeading
     \ /^\s*\zs=\{1,6}\s.*$/
     \ contains=typstMarkupLabel
@@ -338,6 +341,7 @@ highlight default link typstMarkupDollar            Noise
 
 " Highlighting > Custom Styling {{{2
 highlight default typstMarkupHeading                    term=underline,bold     cterm=underline,bold    gui=underline,bold
+highlight default typstMarkupUrl                        term=underline          cterm=underline         gui=underline
 highlight default typstMarkupBold                       term=bold               cterm=bold              gui=bold
 highlight default typstMarkupItalic                     term=italic             cterm=italic            gui=italic
 
