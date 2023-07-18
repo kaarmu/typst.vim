@@ -22,9 +22,6 @@ setlocal shiftwidth=2
 setlocal commentstring=//%s
 setlocal comments=s1:/*,mb:*,ex:*/,://
 
-" insert bullets automatically
-setlocal comments+=b:-,b:+,b:/
-
 setlocal formatoptions+=croq
 
 setlocal suffixesadd=.typ
