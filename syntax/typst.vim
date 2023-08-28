@@ -155,12 +155,21 @@ syntax cluster typstHashtagKeywords
             \ ,typstHashtagRepeat
             \ ,typstHashtagKeywords
             \ ,typstHashtagStatement
-syntax match typstHashtagConditional
-    \ /\v#if>-@!/
-    \ skipwhite nextgroup=@typstCode
-syntax match typstHashtagRepeat
-    \ /\v#(while|for)>-@!/
-    \ skipwhite nextgroup=@typstCode
+
+syntax match typstHashtagControlFlowError
+    \ /\v#%(if|while|for)>-@!.{-}$\_.{-}%(\{|\[)/
+syntax match typstHashtagControlFlow
+    \ /\v#%(if|while|for)>-@!.{-}\ze%(\{|\[)/
+    \ contains=typstHashtagConditional,typstHashtagRepeat 
+    \ nextgroup=@typstCode
+syntax region typstHashtagConditional
+    \ contained
+    \ start=/\v#if>-@!/ end=/\v\ze(\{|\[)/
+    \ contains=@typstCode
+syntax region typstHashtagRepeat
+    \ contained
+    \ start=/\v#(while|for)>-@!/ end=/\v\ze(\{|\[)/
+    \ contains=@typstCode
 syntax match typstHashtagKeyword
     \ /\v#(return)>-@!/
     \ skipwhite nextgroup=@typstCode
@@ -313,6 +322,7 @@ highlight default link typstCodeParen               Noise
 highlight default link typstCodeBrace               Noise
 highlight default link typstCodeBracket             Noise
 highlight default link typstCodeDollar              Noise
+highlight default link typstHashtagControlFlowError Error
 highlight default link typstHashtagConditional      Conditional
 highlight default link typstHashtagRepeat           Repeat
 highlight default link typstHashtagKeyword          Keyword
