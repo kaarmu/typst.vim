@@ -21,7 +21,7 @@ syntax match typstCommentBlock
     \ #/\*\%(\_.\{-}\)\*/#
     \ contains=typstCommentTodo,@Spell
 syntax match typstCommentLine
-    \ #//.*$#
+    \ #//.*#
     \ contains=typstCommentTodo,@Spell
 syntax keyword typstCommentTodo
     \ contained
