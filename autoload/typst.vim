@@ -10,6 +10,8 @@ function! typst#TypstWatch(...)
         \ . ' watch'
         \ . ' ' . expand('%')
         \ . ' --open'
+        \ . ' ' . g:typst_pdf_viewer
+
     let l:str = has('win32')
         \ ? 'cmd /s /c "' . l:cmd . '"'
         \ : 'sh -c "' . l:cmd . '"'
