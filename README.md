@@ -63,6 +63,8 @@ call plug#end()
 
 `g:typst_cmd` - Specifies the location of the Typst executable. Defaults to `"typst"`.
 
+`g:typst_pdf_viewer` - Specifies pdf viewer that `typst watch --open` will use.
+
 `:TypstWatch` - Watches your document and recompiles on change; also opens the document with your default pdf viewer.
 
 ## Tips
