@@ -57,42 +57,6 @@ syntax region typstCodeStatement
     \ matchgroup=typstCodeStatementWord start=/\v(let|set|show|import|include)>-@!/ end=/\v%(;|$)/
     \ contains=@typstCode
 
-" Code > Constants {{{2
-syntax cluster typstCodeConstants
-    \ contains=typstCodeConstant
-            \ ,typstCodeNumberInteger
-            \ ,typstCodeNumberFloat
-            \ ,typstCodeNumberLength
-            \ ,typstCodeNumberAngle
-            \ ,typstCodeNumberRatio
-            \ ,typstCodeNumberFraction
-            \ ,typstCodeString
-syntax keyword typstCodeConstant
-    \ contained
-    \ none auto true false
-syntax match typstCodeNumberInteger
-    \ contained
-    \ /\v<\d+>/
-syntax match typstCodeNumberFloat
-    \ contained
-    \ /\v<\d+\.\d*>/
-syntax match typstCodeNumberLength
-    \ contained
-    \ /\v<\d+(\.\d*)?(pt|mm|cm|in|em)>/
-syntax match typstCodeNumberAngle
-    \ contained
-    \ /\v<\d+(\.\d*)?(deg|rad)>/
-syntax match typstCodeNumberRatio
-    \ contained
-    \ /\v<\d+(\.\d*)?\%/
-syntax match typstCodeNumberFraction
-    \ contained
-    \ /\v<\d+(\.\d*)?fr>/
-syntax region typstCodeString
-    \ contained
-    \ start=/"/ skip=/\v\\\\|\\"/ end=/"/
-    \ contains=@Spell
-
 " Code > Identifiers- {{{2
 syntax cluster typstCodeIdentifiers
     \ contains=typstCodeIdentifier
@@ -116,6 +80,42 @@ syntax match typstCodeFunctionArgument
     \ contained
     \ /\v%(%(\(.{-}\)|\[.{-}\]|\{.{-}\}))*/ transparent
     \ contains=@typstCode
+
+" Code > Constants {{{2
+syntax cluster typstCodeConstants
+    \ contains=typstCodeConstant
+            \ ,typstCodeNumberInteger
+            \ ,typstCodeNumberFloat
+            \ ,typstCodeNumberLength
+            \ ,typstCodeNumberAngle
+            \ ,typstCodeNumberRatio
+            \ ,typstCodeNumberFraction
+            \ ,typstCodeString
+syntax match typstCodeConstant
+    \ contained
+    \ /\v<%(none|auto|true|false)-@!>/ 
+syntax match typstCodeNumberInteger
+    \ contained
+    \ /\v<\d+>/
+syntax match typstCodeNumberFloat
+    \ contained
+    \ /\v<\d+\.\d*>/
+syntax match typstCodeNumberLength
+    \ contained
+    \ /\v<\d+(\.\d*)?(pt|mm|cm|in|em)>/
+syntax match typstCodeNumberAngle
+    \ contained
+    \ /\v<\d+(\.\d*)?(deg|rad)>/
+syntax match typstCodeNumberRatio
+    \ contained
+    \ /\v<\d+(\.\d*)?\%/
+syntax match typstCodeNumberFraction
+    \ contained
+    \ /\v<\d+(\.\d*)?fr>/
+syntax region typstCodeString
+    \ contained
+    \ start=/"/ skip=/\v\\\\|\\"/ end=/"/
+    \ contains=@Spell
 
 " Code > Parens {{{2
 syntax cluster typstCodeParens
