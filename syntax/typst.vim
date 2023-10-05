@@ -249,8 +249,26 @@ syntax cluster typstMarkupText
 
 syntax match typstMarkupRawInline
     \ /`.\{-}`/
-syntax region typstMarkupRawBlock
-    \ start=/```/ end=/```/ keepend
+
+syntax region typstMarkupRawBlock 
+    \ matchgroup=Macro start=/```\w*/ 
+    \ matchgroup=Macro end=/```/ keepend
+syntax region typstCodeBlock
+    \ matchgroup=Macro start=/```typst/
+    \ matchgroup=Macro end=/```/ contains=@typstCode keepend
+syntax include @C syntax/c.vim
+syntax region typstMarkupCCodeBlock
+    \ matchgroup=Macro start=/```c\>/
+    \ matchgroup=Macro end=/```/ contains=@C keepend
+syntax include @CPP syntax/cpp.vim
+syntax region typstMarkupCPPCodeBlock 
+    \ matchgroup=Macro start=/```cpp/
+    \ matchgroup=Macro end=/```/ contains=@CPP keepend
+syntax include @Python syntax/python.vim
+syntax region typstMarkupPythonCodeBlock 
+    \ matchgroup=Macro start=/```python/
+    \ matchgroup=Macro end=/```/ contains=@Python keepend
+
 syntax match typstMarkupLabel
     \ /\v\<\K%(\k*-*)*\>/
 syntax match typstMarkupReference
