@@ -97,6 +97,7 @@ syntax match typstCodeConstant
 syntax match typstCodeNumberInteger
     \ contained
     \ /\v<\d+>/
+
 syntax match typstCodeNumberFloat
     \ contained
     \ /\v<\d+\.\d*>/
@@ -123,6 +124,8 @@ syntax cluster typstCodeParens
             \ ,typstCodeBrace
             \ ,typstCodeBracket
             \ ,typstCodeDollar
+            \ ,typstMarkupRawInline
+            \ ,typstMarkupRawBlock
 syntax region typstCodeParen
     \ contained
     \ matchgroup=Noise start=/\v\(/ end=/\v\)/
