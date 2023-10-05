@@ -285,10 +285,16 @@ syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
-syn region typstMarkupItalic
-    \ matchgroup=typstMarkupItalicDelimiter start=/\w\@<!_\S\@=/ skip=/\\_/ end=/\S\@<=_\w\@!\|^$/
+syntax match typstMarkupItalicError
+    \ /\v(\w|\\)@<!_\S@=.*/
+syntax match typstMarkupItalic
+    \ /\v(\w|\\)@<!_\S@=.*(\n.+)*\S@<=\\@<!_/
+    \ contains=typstMarkupItalicRegion
+syntax region typstMarkupItalicRegion
+    \ contained
+    \ matchgroup=typstMarkupItalicDelimiter start=/_/ skip=/\\\@<=_/ end=/_/
     \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
-syn region typstMarkupBold
+syntax region typstMarkupBold
     \ matchgroup=typstMarkupBoldDelimiter start=/\*\S\@=/ skip=/\\\*/ end=/\S\@<=\*\|^$/
     \ concealends contains=typstMarkupLabel,typstMarkupItalic,@Spell
 syntax match typstMarkupLinebreak
@@ -375,6 +381,7 @@ highlight default link typstMarkupRawBlock          Macro
 highlight default link typstMarkupLabel             Structure
 highlight default link typstMarkupReference         Structure
 highlight default link typstMarkupBulletList        Structure
+highlight default link typstMarkupItalicError       Error
 highlight default link typstMarkupEnumList          Structure
 highlight default link typstMarkupLinebreak         Structure
 highlight default link typstMarkupNonbreakingSpace  Structure
@@ -388,7 +395,7 @@ highlight default link typstMarkupDollar            Noise
 highlight default typstMarkupHeading                    term=underline,bold     cterm=underline,bold    gui=underline,bold
 highlight default typstMarkupUrl                        term=underline          cterm=underline         gui=underline
 highlight default typstMarkupBold                       term=bold               cterm=bold              gui=bold
-highlight default typstMarkupItalic                     term=italic             cterm=italic            gui=italic
+highlight default typstMarkupItalicRegion               term=italic             cterm=italic            gui=italic
 
 highlight default link typstMarkupBoldDelimiter         typstMarkupBold
 highlight default link typstMarkupItalicDelimiter       typstMarkupItalic
