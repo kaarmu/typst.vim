@@ -249,8 +249,26 @@ syntax cluster typstMarkupText
 
 syntax match typstMarkupRawInline
     \ /`.\{-}`/
-syntax region typstMarkupRawBlock
-    \ start=/```/ end=/```/
+
+syntax region typstMarkupRawBlock 
+    \ matchgroup=Macro start=/```\w*/ 
+    \ matchgroup=Macro end=/```/ keepend
+syntax region typstCodeBlock
+    \ matchgroup=Macro start=/```typst/
+    \ matchgroup=Macro end=/```/ contains=@typstCode keepend
+syntax include @C syntax/c.vim
+syntax region typstMarkupCCodeBlock
+    \ matchgroup=Macro start=/```c\>/
+    \ matchgroup=Macro end=/```/ contains=@C keepend
+syntax include @CPP syntax/cpp.vim
+syntax region typstMarkupCPPCodeBlock 
+    \ matchgroup=Macro start=/```cpp/
+    \ matchgroup=Macro end=/```/ contains=@CPP keepend
+syntax include @Python syntax/python.vim
+syntax region typstMarkupPythonCodeBlock 
+    \ matchgroup=Macro start=/```python/
+    \ matchgroup=Macro end=/```/ contains=@Python keepend
+
 syntax match typstMarkupLabel
     \ /\v\<\K%(\k*-*)*\>/
 syntax match typstMarkupReference
@@ -259,17 +277,17 @@ syntax match typstMarkupUrl
     \ /http[s]\?:\/\/[[:alnum:]%\/_#.-]*/
 syntax match typstMarkupHeading
     \ /^\s*\zs=\{1,6}\s.*$/
-    \ contains=typstMarkupLabel
+    \ contains=typstMarkupLabel,@Spell
 syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
 syn region typstMarkupItalic
     \ matchgroup=typstMarkupItalicDelimiter start=/\w\@<!_\S\@=/ skip=/\\_/ end=/\S\@<=_\w\@!\|^$/
-    \ concealends contains=typstMarkupLabel,typstMarkupBold
+    \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
 syn region typstMarkupBold
     \ matchgroup=typstMarkupBoldDelimiter start=/\*\S\@=/ skip=/\\\*/ end=/\S\@<=\*\|^$/
-    \ concealends contains=typstMarkupLabel,typstMarkupItalic
+    \ concealends contains=typstMarkupLabel,typstMarkupItalic,@Spell
 syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
@@ -287,7 +305,7 @@ syntax match typstMarkupTermList
 syntax cluster typstMarkupParens
     \ contains=typstMarkupDollar
 syntax region typstMarkupDollar
-    \ matchgroup=Number start=/\$/ end=/\$/
+    \ matchgroup=Special start=/\$/ skip=/\\\$/ end=/\$/
     \ contains=@typstMath
 
 
@@ -295,7 +313,21 @@ syntax region typstMarkupDollar
 syntax cluster typstMath
     \ contains=@typstCommon
             \ ,@typstHashtag
+            \ ,typstMathFunction
+            \ ,typstMathNumber
+            \ ,typstMathSymbol
 
+syntax match typstMathFunction
+    \ /\<\v\zs\a\w+\ze\(/
+    \ contained
+syntax match typstMathNumber
+    \ /\<\d\+\>/
+    \ contained
+
+" Math > Linked groups {{{2
+highlight default link typstMathFunction            Statement
+highlight default link typstMathNumber              Number
+highlight default link typstMathSymbol              Statement
 
 " Highlighting {{{1
 
