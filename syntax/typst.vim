@@ -305,7 +305,7 @@ syntax match typstMarkupTermList
 syntax cluster typstMarkupParens
     \ contains=typstMarkupDollar
 syntax region typstMarkupDollar
-    \ matchgroup=Number start=/\$/ end=/\$/
+    \ matchgroup=Special start=/\$/ skip=/\\\$/ end=/\$/
     \ contains=@typstMath
 
 
@@ -313,7 +313,21 @@ syntax region typstMarkupDollar
 syntax cluster typstMath
     \ contains=@typstCommon
             \ ,@typstHashtag
+            \ ,typstMathFunction
+            \ ,typstMathNumber
+            \ ,typstMathSymbol
 
+syntax match typstMathFunction
+    \ /\<\v\zs\a\w+\ze\(/
+    \ contained
+syntax match typstMathNumber
+    \ /\<\d\+\>/
+    \ contained
+
+" Math > Linked groups {{{2
+highlight default link typstMathFunction            Statement
+highlight default link typstMathNumber              Number
+highlight default link typstMathSymbol              Statement
 
 " Highlighting {{{1
 
