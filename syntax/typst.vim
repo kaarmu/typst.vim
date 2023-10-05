@@ -250,7 +250,7 @@ syntax cluster typstMarkupText
 syntax match typstMarkupRawInline
     \ /`.\{-}`/
 syntax region typstMarkupRawBlock
-    \ start=/```/ end=/```/
+    \ start=/```/ end=/```/ keepend
 syntax match typstMarkupLabel
     \ /\v\<\K%(\k*-*)*\>/
 syntax match typstMarkupReference
@@ -259,17 +259,17 @@ syntax match typstMarkupUrl
     \ /http[s]\?:\/\/[[:alnum:]%\/_#.-]*/
 syntax match typstMarkupHeading
     \ /^\s*\zs=\{1,6}\s.*$/
-    \ contains=typstMarkupLabel
+    \ contains=typstMarkupLabel,@Spell
 syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
 syn region typstMarkupItalic
     \ matchgroup=typstMarkupItalicDelimiter start=/\w\@<!_\S\@=/ skip=/\\_/ end=/\S\@<=_\w\@!\|^$/
-    \ concealends contains=typstMarkupLabel,typstMarkupBold
+    \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
 syn region typstMarkupBold
     \ matchgroup=typstMarkupBoldDelimiter start=/\*\S\@=/ skip=/\\\*/ end=/\S\@<=\*\|^$/
-    \ concealends contains=typstMarkupLabel,typstMarkupItalic
+    \ concealends contains=typstMarkupLabel,typstMarkupItalic,@Spell
 syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
