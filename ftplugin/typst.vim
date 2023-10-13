@@ -12,6 +12,10 @@ if !exists('g:typst_pdf_viewer')
     let g:typst_pdf_viewer =  ""
 endif
 
+if !exists('g:typst_auto_close_toc')
+    let g:typst_auto_close_toc =  0
+endif
+
 let b:did_ftplugin = 1
 
 let s:cpo_orig = &cpo
@@ -34,6 +38,11 @@ setlocal formatoptions+=croq
 setlocal suffixesadd=.typ
 
 command! -nargs=* -buffer TypstWatch call typst#TypstWatch(<f-args>)
+
+command! -buffer Toc call typst#Toc('vertical')
+command! -buffer Toch call typst#Toc('horizontal')
+command! -buffer Tocv call typst#Toc('vertical')
+command! -buffer Toct call typst#Toc('tab')
 
 let &cpo = s:cpo_orig
 unlet s:cpo_orig
