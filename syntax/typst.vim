@@ -160,9 +160,9 @@ syntax cluster typstHashtagKeywords
             \ ,typstHashtagStatement
 
 syntax match typstHashtagControlFlowError
-    \ /\v#%(if|while|for)>-@!.{-}$\_.{-}%(\{|\[)/
+    \ /\v#%(if|while|for)>-@!.{-}$\_.{-}%(\{|\[|\()/
 syntax match typstHashtagControlFlow
-    \ /\v#%(if|while|for)>-@!.{-}\ze%(\{|\[)/
+    \ /\v#%(if|while|for)>-@!.{-}\ze%(\{|\[|\()/
     \ contains=typstHashtagConditional,typstHashtagRepeat 
     \ nextgroup=@typstCode
 syntax region typstHashtagConditional
