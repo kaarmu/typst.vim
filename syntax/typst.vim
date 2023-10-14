@@ -290,9 +290,13 @@ syntax match typstMarkupItalicError
 syntax match typstMarkupItalic
     \ /\v(\w|\\)@<!_\S@=.*(\n.+)*\S@<=\\@<!_/
     \ contains=typstMarkupItalicRegion
+" syntax region typstMarkupItalicRegion
+    " \ contained
+    " \ matchgroup=typstMarkupItalicDelimiter start=/\(^\|[^0-9a-zA-Z]\)\zs_\ze/ skip=/\\\@<=_/ end=/\zs_\ze\($\|[^0-9a-zA-Z]\)/
+    " \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
 syntax region typstMarkupItalicRegion
     \ contained
-    \ matchgroup=typstMarkupItalicDelimiter start=/_/ skip=/\\\@<=_/ end=/_/
+    \ matchgroup=typstMarkupItalicDelimiter start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
     \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
 syntax region typstMarkupBold
     \ matchgroup=typstMarkupBoldDelimiter start=/\*\S\@=/ skip=/\\\*/ end=/\S\@<=\*\|^$/

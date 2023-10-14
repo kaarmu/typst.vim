@@ -65,6 +65,8 @@ call plug#end()
 
 `g:typst_pdf_viewer` - Specifies pdf viewer that `typst watch --open` will use.
 
+`g:typst_auto_close_toc` - Specifies whether TOC will be automatically closed after using it.
+
 `:TypstWatch` - Watches your document and recompiles on change; also opens the document with your default pdf viewer.
 
 ## Tips
