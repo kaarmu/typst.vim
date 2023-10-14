@@ -277,7 +277,7 @@ syntax match typstMarkupLabel
 syntax match typstMarkupReference
     \ /\v\@\K%(\k*-*)*/
 syntax match typstMarkupUrl
-    \ /http[s]\?:\/\/[[:alnum:]%\/_#.-]*/
+    \ #\v\w+://\S*#
 syntax match typstMarkupHeading
     \ /^\s*\zs=\{1,6}\s.*$/
     \ contains=typstMarkupLabel,@Spell
