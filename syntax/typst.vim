@@ -159,8 +159,8 @@ syntax cluster typstHashtagKeywords
             \ ,typstHashtagKeywords
             \ ,typstHashtagStatement
 
-syntax match typstHashtagControlFlowError
-    \ /\v#%(if|while|for)>-@!.{-}$\_.{-}%(\{|\[|\()/
+" syntax match typstHashtagControlFlowError
+"     \ /\v#%(if|while|for)>-@!.{-}$\_.{-}%(\{|\[|\()/
 syntax match typstHashtagControlFlow
     \ /\v#%(if|while|for)>-@!.{-}\ze%(\{|\[|\()/
     \ contains=typstHashtagConditional,typstHashtagRepeat 
@@ -285,8 +285,8 @@ syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
-syntax match typstMarkupItalicError
-    \ /\v(\w|\\)@<!_\S@=.*|.*\S@<=\\@<!_/
+" syntax match typstMarkupItalicError
+"     \ /\v(\w|\\)@<!_\S@=.*|.*\S@<=\\@<!_/
 syntax match typstMarkupItalic
     \ /\v(\w|\\)@<!_\S@=.*(\n.+)*\S@<=\\@<!_/
     \ contains=typstMarkupItalicRegion
@@ -295,8 +295,8 @@ syntax region typstMarkupItalicRegion
     \ matchgroup=typstMarkupItalicDelimiter 
     \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
     \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
-syntax match typstMarkupBoldError
-    \ /\v(\w|\\)@<!\*\S@=.*|.*\S@<=\\@<!\*/
+" syntax match typstMarkupBoldError
+"     \ /\v(\w|\\)@<!\*\S@=.*|.*\S@<=\\@<!\*/
 syntax match typstMarkupBold
     \ /\v(\w|\\)@<!\*\S@=.*(\n.+)*\S@<=\\@<!\*/
     \ contains=typstMarkupBoldRegion
@@ -373,7 +373,7 @@ highlight default link typstCodeParen               Noise
 highlight default link typstCodeBrace               Noise
 highlight default link typstCodeBracket             Noise
 highlight default link typstCodeDollar              Noise
-highlight default link typstHashtagControlFlowError Error
+" highlight default link typstHashtagControlFlowError Error
 highlight default link typstHashtagConditional      Conditional
 highlight default link typstHashtagRepeat           Repeat
 highlight default link typstHashtagKeyword          Keyword
@@ -391,8 +391,8 @@ highlight default link typstMarkupRawBlock          Macro
 highlight default link typstMarkupLabel             Structure
 highlight default link typstMarkupReference         Structure
 highlight default link typstMarkupBulletList        Structure
-highlight default link typstMarkupItalicError       Error
-highlight default link typstMarkupBoldError         Error
+" highlight default link typstMarkupItalicError       Error
+" highlight default link typstMarkupBoldError         Error
 highlight default link typstMarkupEnumList          Structure
 highlight default link typstMarkupLinebreak         Structure
 highlight default link typstMarkupNonbreakingSpace  Structure
