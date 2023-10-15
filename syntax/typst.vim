@@ -340,6 +340,8 @@ syntax match typstMathFunction
 syntax match typstMathNumber
     \ /\<\d\+\>/
     \ contained
+runtime! syntax/typst-symbols.vim
+
 
 " Math > Linked groups {{{2
 highlight default link typstMathFunction            Statement
@@ -390,7 +392,7 @@ highlight default link typstMarkupLabel             Structure
 highlight default link typstMarkupReference         Structure
 highlight default link typstMarkupBulletList        Structure
 highlight default link typstMarkupItalicError       Error
-highlight default link typstMarkupBoldError       Error
+highlight default link typstMarkupBoldError         Error
 highlight default link typstMarkupEnumList          Structure
 highlight default link typstMarkupLinebreak         Structure
 highlight default link typstMarkupNonbreakingSpace  Structure
@@ -401,6 +403,8 @@ highlight default link typstMarkupTermList          Structure
 highlight default link typstMarkupDollar            Noise
 
 " Highlighting > Custom Styling {{{2
+highlight! Conceal ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
+
 highlight default typstMarkupHeading                    term=underline,bold     cterm=underline,bold    gui=underline,bold
 highlight default typstMarkupUrl                        term=underline          cterm=underline         gui=underline
 highlight default typstMarkupBold                       term=bold               cterm=bold              gui=bold
