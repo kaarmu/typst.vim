@@ -1,5 +1,3 @@
-" FIXME: quick hack for #11
-" this will introduce the jobstart/job_start problem with neovim/vim
 function! typst#TypstWatch(...)
     " Prepare command
     " NOTE: added arguments #23 but they will always be like
@@ -8,20 +6,51 @@ function! typst#TypstWatch(...)
     let l:cmd = g:typst_cmd
         \ . ' ' . join(a:000)
         \ . ' watch'
+        \ . ' --diagnostic-format short'
         \ . ' ' . expand('%')
-        \ . ' --open'
-        \ . ' ' . g:typst_pdf_viewer
+
+    if !empty(g:typst_pdf_viewer)
+        let l:cmd = l:cmd . ' --open ' . g:typst_pdf_viewer 
+    else
+        let l:cmd = l:cmd . ' --open'
+    endif
+
+    " Write message
+    echom 'Starting: ' . l:cmd
 
     let l:str = has('win32')
-        \ ? 'cmd /s /c "' . l:cmd . '"'
-        \ : 'sh -c "' . l:cmd . '"'
+              \ ? 'cmd /s /c "' . l:cmd . '"'
+              \ : 'sh -c "' . l:cmd . '"'
 
     " Execute command and toggle status
     if has('nvim')
-        let s:watcher = jobstart(l:str)
+        let s:watcher = jobstart(l:str, {'on_stderr': 'typst#TypstWatcherCb'})
     else
-        let s:watcher = job_start(l:str)
+        if exists('s:watcher') && job_status(s:watcher) == 'run'
+            echoerr 'TypstWatch is already running.'
+        endif
+        let s:watcher = job_start(l:str, {'err_mode': 'raw',
+                                         \'err_cb': 'typst#TypstWatcherCb'})
     endif
+endfunction
+
+" Callback function for job exit
+function! typst#TypstWatcherCb(channel, str)
+    let l:errors = []
+    for l:line in split(a:str, "\n")
+        " Probably this match can be done using errorformat.
+	" Maybe do something like vim-dispatch.
+        let l:match = matchlist(l:line, '\v^([^:]+):(\d+):(\d+):\s*(.+)$')
+        if 0 < len(l:match)
+            let l:error = {'filename': l:match[1],
+                          \'lnum': l:match[2],
+                          \'col': l:match[3],
+                          \'text': l:match[4]}
+            call add(l:errors, l:error)
+        endif
+    endfor
+    call setqflist(l:errors)
+    execute empty(l:errors) ? 'cclose' : 'copen'
 endfunction
 
 " Below are adapted from preservim/vim-markdown
