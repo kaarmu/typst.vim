@@ -22,8 +22,9 @@ let s:cpo_orig = &cpo
 set cpo&vim
 
 compiler typst
-"Workaround for https://github.com/typst/typst/issues/1937
-set errorformat^=\/%f:%l:%c:%m
+
+" " If you're on typst <v0.8, workaround for https://github.com/typst/typst/issues/1937
+" set errorformat^=\/%f:%l:%c:%m
 
 setlocal expandtab
 setlocal tabstop=8
