@@ -24,7 +24,8 @@ function! typst#TypstWatch(...)
 
     " Execute command and toggle status
     if has('nvim')
-        let s:watcher = jobstart(l:str, {'on_stderr': 'typst#TypstWatcherCb'})
+        # let s:watcher = jobstart(l:str, {'on_stderr': 'typst#TypstWatcherCb'})
+        let s:watcher = jobstart(l:str)
     else
         if exists('s:watcher') && job_status(s:watcher) == 'run'
             echoerr 'TypstWatch is already running.'
