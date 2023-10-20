@@ -345,6 +345,7 @@ syntax match typstMathNumber
     \ contained
 syntax region typstMathQuote
     \ matchgroup=String start=/"/ skip=/\\"/ end=/"/
+    \ contained
 runtime! syntax/typst-symbols.vim
 
 
