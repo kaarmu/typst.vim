@@ -333,12 +333,18 @@ syntax cluster typstMath
             \ ,typstMathFunction
             \ ,typstMathNumber
             \ ,typstMathSymbol
+            \ ,typstMathBold
+            \ ,typstMathScripts
+            \ ,typstMathQuote
 
 syntax match typstMathFunction
     \ /\<\v\zs\a\w+\ze\(/
     \ contained
 syntax match typstMathNumber
     \ /\<\d\+\>/
+    \ contained
+syntax region typstMathQuote
+    \ matchgroup=String start=/"/ skip=/\\"/ end=/"/
     \ contained
 runtime! syntax/typst-symbols.vim
 
