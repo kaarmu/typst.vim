@@ -28,7 +28,8 @@ function! typst#TypstWatch(...)
         let s:watcher = jobstart(l:str)
     else
         if exists('s:watcher') && job_status(s:watcher) == 'run'
-            echoerr 'TypstWatch is already running.'
+            " echoerr 'TypstWatch is already running.'
+	    call job_stop(s:watcher)
         endif
         let s:watcher = job_start(l:str, {'err_mode': 'raw',
                                          \'err_cb': 'typst#TypstWatcherCb'})
