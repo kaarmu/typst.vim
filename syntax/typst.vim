@@ -346,7 +346,7 @@ syntax match typstMathNumber
 syntax region typstMathQuote
     \ matchgroup=String start=/"/ skip=/\\"/ end=/"/
     \ contained
-runtime! syntax/typst-symbols.vim
+call typst#syntax#symbols#all_symbols()
 
 
 " Math > Linked groups {{{2

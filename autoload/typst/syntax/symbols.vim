@@ -1,3 +1,61 @@
+
+function! typst#syntax#symbols#all_symbols()
+    call typst#syntax#symbols#sup_symbols()
+    call typst#syntax#symbols#sub_symbols()
+    call typst#syntax#symbols#cal_symbols()
+    call typst#syntax#symbols#bold_symbols()
+    call typst#syntax#symbols#most_symbols()
+endfunction
+
+function! typst#syntax#symbols#most_symbols()
+    for typmath in s:typstMathList
+        exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zs".typmath[0]."\\ze\\(\\>[^.]\\|_\\|$\\)' contained conceal cchar=".typmath[1]
+    endfor
+    
+    for typmath in s:typstMathList2
+        exe "syn match typstMathSymbol '\\(\\<\\|^\\|\\w\\|\\s\\|\\$\\)\\zs".typmath[0]."\\ze\\(\\w\\|\\s\\|$\\|\\$\\)' contained conceal cchar=".typmath[1]
+    endfor
+endfunction
+
+function! typst#syntax#symbols#cal_symbols()
+    for typmath in s:typstCalList
+        exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zscal(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
+        exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsfca(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
+    endfor
+endfunction
+
+function! typst#syntax#symbols#bold_symbols()
+    for typmath in s:typstBBList
+        exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsbb(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
+        exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsfbb(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
+    endfor
+    
+    
+    syntax region typstMathBold
+        \ matchgroup=typstMathFunction start=/\<fb(/ end=/)/
+        \ contains=@typstMath
+        \ contained concealends
+    
+    syntax region typstMathBold
+        \ matchgroup=typstMathFunction start=/\<bold(/ end=/)/
+        \ contains=@typstMath
+        \ contained concealends
+
+    highlight default link typstMathBold         typstMarkupBold
+endfunction
+
+function! typst#syntax#symbols#sup_symbols()
+    for typmath in s:typstSupList
+        exe "syn match typstMathScripts '\\(\\w\\|)\\)\\@<=\\^".typmath[0]."' contained conceal cchar=".typmath[1]
+    endfor
+endfunction
+
+function! typst#syntax#symbols#sub_symbols()
+    for typmath in s:typstSubList
+        exe "syn match typstMathScripts '\\(\\w\\|)\\)\\@<=_".typmath[0]."' contained conceal cchar=".typmath[1]
+    endfor
+endfunction
+    
 let s:typstMathList=[
     \ ['space', '␣'],
     \ ['paren\.l', '('],
@@ -903,10 +961,6 @@ let s:typstMathList=[
     \ ['ne', '≠'],
 \ ]
 
-for typmath in s:typstMathList
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zs".typmath[0]."\\ze\\(\\>[^.]\\|_\\|$\\)' contained conceal cchar=".typmath[1]
-endfor
-
 let s:typstMathList2=[
     \ ['\[|', '⟦'],
     \ ['|\]', '⟧'],
@@ -947,10 +1001,6 @@ let s:typstMathList2=[
     \ ['<==>', '⟺'],
     \ ['<-->', '⟷'],
 \ ]
-
-for typmath in s:typstMathList2
-    exe "syn match typstMathSymbol '\\(\\<\\|^\\|\\w\\|\\s\\|\\$\\)\\zs".typmath[0]."\\ze\\(\\w\\|\\s\\|$\\|\\$\\)' contained conceal cchar=".typmath[1]
-endfor
 
 let s:typstCalList=[
     \ ['A', '𝓐'],
@@ -1006,11 +1056,6 @@ let s:typstCalList=[
     \ ['y', '𝔂'],
     \ ['z', '𝔃'],
 \ ]
-
-for typmath in s:typstCalList
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zscal(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsfca(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
-endfor
 
 let s:typstBBList=[
     \ ['A', '𝔸'],
@@ -1077,24 +1122,6 @@ let s:typstBBList=[
     \ ['9', '𝟡'],
 \ ]
 
-for typmath in s:typstBBList
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsbb(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsfbb(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
-endfor
-
-
-syntax region typstMathBold
-    \ matchgroup=typstMathFunction start=/\<fb(/ end=/)/
-    \ contains=@typstMath
-    \ contained concealends
-
-syntax region typstMathBold
-    \ matchgroup=typstMathFunction start=/\<bold(/ end=/)/
-    \ contains=@typstMath
-    \ contained concealends
-
-highlight default link typstMathBold         typstMarkupBold
-
 let s:typstSubList=[
     \ ['0', '₀'],
     \ ['1', '₁'],
@@ -1123,10 +1150,6 @@ let s:typstSubList=[
     \ ['t', 'ₜ'],
 \ ]
 
-for typmath in s:typstSubList
-    exe "syn match typstMathScripts '\\(\\w\\|)\\)\\@<=_".typmath[0]."' contained conceal cchar=".typmath[1]
-endfor
-
 let s:typstSupList=[
     \ ['0', '⁰'],
     \ ['1', '¹'],
@@ -1144,8 +1167,4 @@ let s:typstSupList=[
     \ ['n', 'ⁿ'],
     \ ['i', 'ⁱ'],
 \ ]
-
-for typmath in s:typstSupList
-    exe "syn match typstMathScripts '\\(\\w\\|)\\)\\@<=\\^".typmath[0]."' contained conceal cchar=".typmath[1]
-endfor
 
