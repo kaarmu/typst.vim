@@ -33,7 +33,7 @@ function! typst#TypstWatch(...)
                         \'err_cb': 'typst#TypstWatcherCb'}
     endif
 
-    if exists('s:watcher') && job_status(s:watcher) == 'run'
+    if exists('s:watcher') " && job_status(s:watcher) == 'run'
         " echoerr 'TypstWatch is already running.'
         call l:JobStop(s:watcher)
     endif
@@ -43,9 +43,13 @@ function! typst#TypstWatch(...)
 endfunction
 
 " Callback function for job exit
-function! typst#TypstWatcherCb(channel, str, ...)
+function! typst#TypstWatcherCb(channel, content, ...)
     let l:errors = []
-    for l:line in split(a:str, "\n")
+    let l:lines = a:content
+    if !has('nvim')
+	let l:lines = split(l:lines, "\n")
+    endif
+    for l:line in l:lines
         " Probably this match can be done using errorformat.
 	" Maybe do something like vim-dispatch.
         let l:match = matchlist(l:line, '\v^([^:]+):(\d+):(\d+):\s*(.+)$')
