@@ -320,7 +320,11 @@ syntax match typstMarkupTermList
 
 " Markup > Parens {{{2
 syntax cluster typstMarkupParens
-    \ contains=typstMarkupDollar
+    \ contains=typstMarkupBracket
+            \ ,typstMarkupDollar
+syntax region typstMarkupBracket
+    \ matchgroup=Noise start=/\[/ end=/\]/
+    \ contains=@typstMarkup
 syntax region typstMarkupDollar
     \ matchgroup=Special start=/\$/ skip=/\\\$/ end=/\$/
     \ contains=@typstMath
