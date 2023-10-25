@@ -128,19 +128,19 @@ syntax cluster typstCodeParens
             \ ,typstMarkupRawBlock
 syntax region typstCodeParen
     \ contained
-    \ matchgroup=Noise start=/\v\(/ end=/\v\)/
+    \ matchgroup=Noise start=/(/ end=/)/
     \ contains=@typstCode
 syntax region typstCodeBrace
     \ contained
-    \ matchgroup=Noise start=/\v\{/ end=/\v\}/
+    \ matchgroup=Noise start=/{/ end=/}/
     \ contains=@typstCode
 syntax region typstCodeBracket
     \ contained
-    \ matchgroup=Noise start=/\v\[/ end=/\v\]/
+    \ matchgroup=Noise start=/\[/ end=/\]/
     \ contains=@typstMarkup
 syntax region typstCodeDollar
     \ contained
-    \ matchgroup=Number start=/\v\$/ end=/\v\$/
+    \ matchgroup=Number start=/\$/ end=/\$/
     \ contains=@typstMath
 
 
@@ -210,16 +210,16 @@ syntax cluster typstHashtagParens
             \ ,typstHashtagBracket
             \ ,typstHashtagDollar
 syntax region typstHashtagParen
-    \ matchgroup=Noise start=/\v\#\(/ end=/\v\)/
+    \ matchgroup=Noise start=/#(/ end=/)/
     \ contains=@typstCode
 syntax region typstHashtagBrace
-    \ matchgroup=Noise start=/\v\#\{/ end=/\v\}/
+    \ matchgroup=Noise start=/#{/ end=/}/
     \ contains=@typstCode
 syntax region typstHashtagBracket
-    \ matchgroup=Noise start=/\v\#\[/ end=/\v\]/
+    \ matchgroup=Noise start=/#\[/ end=/\]/
     \ contains=@typstMarkup
 syntax region typstHashtagDollar
-    \ matchgroup=Noise start=/\v\#\$/ end=/\v\$/
+    \ matchgroup=Noise start=/#\$/ end=/\$/
     \ contains=@typstMath
 
 
