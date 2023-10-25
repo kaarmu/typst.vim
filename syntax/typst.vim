@@ -298,7 +298,7 @@ syntax region typstMarkupItalicRegion
 " syntax match typstMarkupBoldError
 "     \ /\v(\w|\\)@<!\*\S@=.*|.*\S@<=\\@<!\*/
 syntax match typstMarkupBold
-    \ /\v(\w|\\)@<!\*\S@=.*(\n.+)*\S@<=\\@<!\*/
+    \ /\v(\w|\\)@<!\*\S@=.{-}(\n.{-1,})*\S@<=\\@<!\*/
     \ contains=typstMarkupBoldRegion
 syntax region typstMarkupBoldRegion
     \ contained
@@ -413,7 +413,7 @@ highlight! Conceal ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 
 highlight default typstMarkupHeading                    term=underline,bold     cterm=underline,bold    gui=underline,bold
 highlight default typstMarkupUrl                        term=underline          cterm=underline         gui=underline
-highlight default typstMarkupBold                       term=bold               cterm=bold              gui=bold
+highlight default typstMarkupBoldRegion                 term=bold               cterm=bold              gui=bold
 highlight default typstMarkupItalicRegion               term=italic             cterm=italic            gui=italic
 
 highlight default link typstMarkupBoldDelimiter         typstMarkupBold
