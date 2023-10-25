@@ -22,22 +22,28 @@ function! typst#TypstWatch(...)
               \ ? 'cmd /s /c "' . l:cmd . '"'
               \ : 'sh -c "' . l:cmd . '"'
 
-    " Execute command and toggle status
     if has('nvim')
-        " let s:watcher = jobstart(l:str, {'on_stderr': 'typst#TypstWatcherCb'})
-        let s:watcher = jobstart(l:str)
+        let l:JobStart = function('jobstart')
+        let l:JobStop = function('jobstop')
+        let l:options = {'on_stderr': 'typst#TypstWatcherCb'}
     else
-        if exists('s:watcher') && job_status(s:watcher) == 'run'
-            " echoerr 'TypstWatch is already running.'
-	    call job_stop(s:watcher)
-        endif
-        let s:watcher = job_start(l:str, {'err_mode': 'raw',
-                                         \'err_cb': 'typst#TypstWatcherCb'})
+        let l:JobStart = function('job_start')
+        let l:JobStop = function('job_stop')
+        let l:options = {'err_mode': 'raw',
+                        \'err_cb': 'typst#TypstWatcherCb'}
     endif
+
+    if exists('s:watcher') && job_status(s:watcher) == 'run'
+        " echoerr 'TypstWatch is already running.'
+        call l:JobStop(s:watcher)
+    endif
+
+    let s:watcher = l:JobStart(l:str, l:options)
+                                      
 endfunction
 
 " Callback function for job exit
-function! typst#TypstWatcherCb(channel, str)
+function! typst#TypstWatcherCb(channel, str, ...)
     let l:errors = []
     for l:line in split(a:str, "\n")
         " Probably this match can be done using errorformat.
