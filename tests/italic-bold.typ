@@ -21,6 +21,13 @@ _Lorem
 
 ipsum_
 
+// Citations
+
+_Lorem ipsum_ @dolor_sit
+
+_Lorem ipsum_ #cite("dolor_sit")
+
+
 = Bold
 
 // Bold
@@ -43,4 +50,10 @@ ipsum*
 *Lorem
 
 ipsum*
+
+// Citations
+
+*Lorem ipsum* @dolor_sit
+
+*Lorem ipsum* #cite("dolor_sit")
 
