@@ -34,7 +34,26 @@ function! typst#synstack(...) abort
     return map(synstack(l:pos[0], l:pos[1]), "synIDattr(v:val, 'name')")
 endfunction
 
-function! typst#in_mode(name, ...) abort
-    let l:name = 'typst' . toupper(a:name[0]) . a:name[1:]
-    return match(call('typst#synstack', a:000), '^' . l:name) >= 0
+function! typst#in_markup(...) abort
+    let l:stack = call('typst#synstack', a:000)
+    return   empty(l:stack)
+        \ || l:stack[-1] =~? '^typstMarkup'
+        \ || l:stack[-1] =~? 'Bracket$'
+endfunction
+
+function! typst#in_code(...) abort
+    let l:stack = call('typst#synstack', a:000)
+    return   l:stack[-1] =~? '^typstCode'
+        \ || l:stack[-1] =~? 'Brace$'
+endfunction
+
+function! typst#in_math(...) abort
+    let l:stack = call('typst#synstack', a:000)
+    return   l:stack[-1] =~? '^typstMath'
+        \ || l:stack[-1] =~? 'Dollar$'
+endfunction
+
+function! typst#in_comment(...) abort
+    let l:stack = call('typst#synstack', a:000)
+    return l:stack[-1] =~? '^typstComment'
 endfunction
