@@ -7,7 +7,7 @@ function! typst#TypstWatch(...)
         \ . ' ' . join(a:000)
         \ . ' watch'
         \ . ' --diagnostic-format short'
-        \ . ' ' . expand('%')
+        \ . " '" . expand('%') . "'"
 
     if !empty(g:typst_pdf_viewer)
         let l:cmd = l:cmd . ' --open ' . g:typst_pdf_viewer 
@@ -39,7 +39,7 @@ function! typst#TypstWatch(...)
     endif
 
     let s:watcher = l:JobStart(l:str, l:options)
-                                      
+
 endfunction
 
 " Callback function for job exit
