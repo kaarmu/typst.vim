@@ -904,7 +904,8 @@ let s:typstMathList=[
 \ ]
 
 for typmath in s:typstMathList
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zs".typmath[0]."\\ze\\(\\>[^.]\\|_\\|$\\)' contained conceal cchar=".typmath[1]
+    "exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zs".typmath[0]."\\ze\\(\\>[^.]\\|_\\|$\\)' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathSymbol '\\a\\@<!".typmath[0]."\\a\\@!' contained conceal cchar=".typmath[1]
 endfor
 
 let s:typstMathList2=[
@@ -916,7 +917,6 @@ let s:typstMathList2=[
     \ ['::=', '⩴'],
     \ ['\.\.\.', '…'],
     \ ["\\'", "′"],
-    \ ['-', '−'],
     \ ['=:', '≕'],
     \ ['!=', '≠'],
     \ ['>>', '≫'],
@@ -949,7 +949,8 @@ let s:typstMathList2=[
 \ ]
 
 for typmath in s:typstMathList2
-    exe "syn match typstMathSymbol '\\(\\<\\|^\\|\\w\\|\\s\\|\\$\\)\\zs".typmath[0]."\\ze\\(\\w\\|\\s\\|$\\|\\$\\)' contained conceal cchar=".typmath[1]
+    "exe "syn match typstMathSymbol '\\(\\<\\|^\\|\\w\\|\\s\\|\\$\\)\\zs".typmath[0]."\\ze\\(\\w\\|\\s\\|$\\|\\$\\)' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathSymbol '".typmath[0]."' contained conceal cchar=".typmath[1]
 endfor
 
 let s:typstCalList=[
@@ -1008,8 +1009,10 @@ let s:typstCalList=[
 \ ]
 
 for typmath in s:typstCalList
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zscal(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsfca(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
+    "exe "syn match typstMathSymbol '\\%(\\<\\|_\\)\\zscal(".typmath[0].")' contained conceal cchar=".typmath[1]
+    "exe "syn match typstMathSymbol '\\%(\\<\\|_\\)\\zsfca(".typmath[0].")' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathSymbol '\\a\\@<!cal(".typmath[0].")' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathSymbol '\\a\\@<!fca(".typmath[0].")' contained conceal cchar=".typmath[1]
 endfor
 
 let s:typstBBList=[
@@ -1078,8 +1081,10 @@ let s:typstBBList=[
 \ ]
 
 for typmath in s:typstBBList
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsbb(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
-    exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsfbb(".typmath[0].")\\ze' contained conceal cchar=".typmath[1]
+    "exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsbb(".typmath[0].")' contained conceal cchar=".typmath[1]
+    "exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zsfbb(".typmath[0].")' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathSymbol '\\a\\@<!bb(".typmath[0].")' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathSymbol '\\a\\@<!fbb(".typmath[0].")' contained conceal cchar=".typmath[1]
 endfor
 
 
