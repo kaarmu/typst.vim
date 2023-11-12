@@ -15,7 +15,8 @@ something now rather than waiting for everthing later.
 **Existing**
 - Vim syntax highlighting.
 - Compile the active document with `:make`.
-- Basic concealing for italic and bold (more to come). You must `set conceallevel=2` for this to work.
+- Concealing for italic, bold. You must `set conceallevel=2` for this to work.
+- Concealing symbols in math mode. You must `set conceallevel=2` and the `g:typst_conceal_math` option.
 
 **Possible features**
 - Formatting using [this](https://github.com/astrale-sharp/typst-fmt/)?
@@ -61,13 +62,23 @@ call plug#end()
 
 ## Usage
 
-`g:typst_cmd` - Specifies the location of the Typst executable. Defaults to `"typst"`.
+### Options
 
-`g:typst_pdf_viewer` - Specifies pdf viewer that `typst watch --open` will use.
+- `g:typst_cmd`: 
+    Specifies the location of the Typst executable. Defaults to `"typst"`.
+- `g:typst_pdf_viewer`: 
+    Specifies pdf viewer that `typst watch --open` will use.
+- `g:typst_conceal_math`:
+    Enable concealment for math symbols in math mode (i.e. replaces symbols
+    with their actual unicode character). **OBS**: this can affect performance,
+    see issue [#64](https://github.com/kaarmu/typst.vim/issues/64).
+- `g:typst_auto_close_toc`: 
+    Specifies whether TOC will be automatically closed after using it.
 
-`g:typst_auto_close_toc` - Specifies whether TOC will be automatically closed after using it.
+### Commands
 
-`:TypstWatch` - Watches your document and recompiles on change; also opens the document with your default pdf viewer.
+- `:TypstWatch`:
+    Watches your document and recompiles on change; also opens the document with your default pdf viewer.
 
 ## Tips
 

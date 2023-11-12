@@ -350,7 +350,10 @@ syntax match typstMathNumber
 syntax region typstMathQuote
     \ matchgroup=String start=/"/ skip=/\\"/ end=/"/
     \ contained
-runtime! syntax/typst-symbols.vim
+
+if g:typst_conceal_math
+    runtime! syntax/typst-symbols.vim
+endif
 
 
 " Math > Linked groups {{{2

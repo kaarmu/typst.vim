@@ -7,9 +7,12 @@ if !exists('g:typst_cmd')
     let g:typst_cmd = "typst"
 endif
 
-
 if !exists('g:typst_pdf_viewer')
     let g:typst_pdf_viewer =  ""
+endif
+
+if !exists('g:typst_conceal_math')
+    let g:typst_conceal_math = 0
 endif
 
 if !exists('g:typst_auto_close_toc')
