@@ -19,6 +19,10 @@ if !exists('g:typst_auto_close_toc')
     let g:typst_auto_close_toc =  0
 endif
 
+if !exists('g:typst_auto_open_quickfix')
+    let g:typst_auto_open_quickfix = 1
+endif
+
 let b:did_ftplugin = 1
 
 let s:cpo_orig = &cpo
