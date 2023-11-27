@@ -1,5 +1,19 @@
 = Leaky Bodies
 
+== Issue #69
+
+// Broken
+
+#show link: underline
+#show link: set text(navy)
+#show par: set block(spacing: 1.75em)
+
+// Not Broken
+
+#show link: underline
+#show link: set text(navy);;
+#show par: set block(spacing: 1.75em)
+
 == Issue #46 (solved)
 
 // Not Broken 
