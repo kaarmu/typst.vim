@@ -38,6 +38,7 @@ setlocal commentstring=//%s
 setlocal comments=s1:/*,mb:*,ex:*/,://
 
 setlocal formatoptions+=croq
+setlocal iskeyword=a-z,A-Z,48-57,_,-
 
 setlocal suffixesadd=.typ
 
