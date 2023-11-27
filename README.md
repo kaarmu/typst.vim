@@ -74,6 +74,8 @@ call plug#end()
     see issue [#64](https://github.com/kaarmu/typst.vim/issues/64).
 - `g:typst_auto_close_toc`: 
     Specifies whether TOC will be automatically closed after using it.
+- `g:typst_auto_open_quickfix`:
+    Specifies whether the quickfix list should automatically open when there are errors from typst. Defaults to `v:true`.
 
 ### Commands
 

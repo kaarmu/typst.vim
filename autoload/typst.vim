@@ -62,7 +62,9 @@ function! typst#TypstWatcherCb(channel, content, ...)
         endif
     endfor
     call setqflist(l:errors)
-    execute empty(l:errors) ? 'cclose' : 'copen'
+    if g:typst_auto_open_quickfix
+        execute empty(l:errors) ? 'cclose' : 'copen'
+    endif
 endfunction
 
 " Below are adapted from preservim/vim-markdown
