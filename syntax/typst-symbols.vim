@@ -1134,7 +1134,7 @@ let s:typstSubList=[
 \ ]
 
 for typmath in s:typstSubList
-    exe "syn match typstMathScripts '\\S\\@=_".typmath[0]."' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathScripts '_".typmath[0]."' contained conceal cchar=".typmath[1]
 endfor
 
 let s:typstSupList=[
@@ -1156,6 +1156,6 @@ let s:typstSupList=[
 \ ]
 
 for typmath in s:typstSupList
-    exe "syn match typstMathScripts '\\S\\@=\\^".typmath[0]."' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathScripts '\\^".typmath[0]."' contained conceal cchar=".typmath[1]
 endfor
 
