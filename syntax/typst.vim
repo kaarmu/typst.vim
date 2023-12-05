@@ -57,16 +57,16 @@ syntax region typstCodeStatement
     \ matchgroup=typstCodeStatementWord start=/\v(let|set|show|import|include)>-@!/ end=/\v%(;|$)/
     \ contains=@typstCode
 
-" Code > Identifiers- {{{2
+" Code > Identifiers {{{2
 syntax cluster typstCodeIdentifiers
     \ contains=typstCodeIdentifier
             \ ,typstCodeFieldAccess
 syntax match typstCodeIdentifier
     \ contained
-    \ /\v\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v\w\k*>(<%(let|set|show|import|include))@<![\.\[\(]@!/
 syntax match typstCodeFieldAccess
     \ contained
-    \ /\v\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v\w\k*>(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Code > Functions {{{2
@@ -74,7 +74,7 @@ syntax cluster typstCodeFunctions
     \ contains=typstCodeFunction
 syntax match typstCodeFunction
     \ contained
-    \ /\v\K\k*%(-+\k+)*[\(\[]@=/
+    \ /\v\w\k*>(<%(let|set|show|import|include))@<![\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 syntax match typstCodeFunctionArgument
     \ contained
@@ -191,16 +191,16 @@ syntax cluster typstHashtagIdentifiers
     \ contains=typstHashtagIdentifier
             \ ,typstHashtagFieldAccess
 syntax match typstHashtagIdentifier
-    \ /\v#\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include|if|while|for|return))@<![\.\[\(]@!/
+    \ /\v#\w\k*>(<%(let|set|show|import|include))@<![\.\[\(]@!/
 syntax match typstHashtagFieldAccess
-    \ /\v#\K\k*%(-+\k+)*>-@!(<%(let|set|show|import|include|if|while|for|return))@<!\.[\[\(]@!/
+    \ /\v#\w\k*>(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Hashtag > Functions {{{2
 syntax cluster typstHashtagFunctions
     \ contains=typstHashtagFunction
 syntax match typstHashtagFunction
-    \ /\v#\K\k*%(-+\k+)*[\(\[]@=/
+    \ /\v#\w\k*>(<%(let|set|show|import|include))@<![\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 
 " Hashtag > Parens {{{2
