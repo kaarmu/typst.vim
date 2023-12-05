@@ -342,7 +342,7 @@ syntax cluster typstMath
             \ ,typstMathQuote
 
 syntax match typstMathFunction
-    \ /\<\v\zs\a\w+\ze\(/
+    \ /\a\a\+\ze(/
     \ contained
 syntax match typstMathNumber
     \ /\<\d\+\>/
