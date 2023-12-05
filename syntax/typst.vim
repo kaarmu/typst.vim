@@ -290,21 +290,37 @@ syntax match typstMarkupEnumList
 syntax match typstMarkupItalic
     \ /\v(\w|\\)@1<!_\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!_/
     \ contains=typstMarkupItalicRegion
-syntax region typstMarkupItalicRegion
-    \ contained
-    \ matchgroup=typstMarkupItalicDelimiter 
-    \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
-    \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
+if g:typst_conceal
+    syntax region typstMarkupItalicRegion
+        \ contained
+        \ matchgroup=typstMarkupItalicDelimiter 
+        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
+        \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
+else
+    syntax region typstMarkupItalicRegion
+        \ contained
+        \ matchgroup=typstMarkupItalicDelimiter 
+        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
+        \ contains=typstMarkupLabel,typstMarkupBold,@Spell
+endif
 " syntax match typstMarkupBoldError
 "     \ /\v(\w|\\)@<!\*\S@=.*|.*\S@<=\\@<!\*/
 syntax match typstMarkupBold
     \ /\v(\w|\\)@1<!\*\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!\*/
     \ contains=typstMarkupBoldRegion
-syntax region typstMarkupBoldRegion
-    \ contained
-    \ matchgroup=typstMarkupBoldDelimiter 
-    \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
-    \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
+if g:typst_conceal
+    syntax region typstMarkupBoldRegion
+        \ contained
+        \ matchgroup=typstMarkupBoldDelimiter 
+        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
+        \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
+else 
+    syntax region typstMarkupBoldRegion
+        \ contained
+        \ matchgroup=typstMarkupBoldDelimiter 
+        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
+        \ contains=typstMarkupLabel,typstMarkupBold,@Spell
+endif
 syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
