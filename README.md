@@ -37,7 +37,7 @@ require('packer').startup(function(use)
 end)
 ```
 
-- Restart neovim to reload config
+- Call `:so %` or restart neovim to reload config
 - Call `:PackerSync`
 
 ### lazy.nvim
