@@ -208,6 +208,11 @@ syntax match typstHashtagFieldAccess
     \ /\v#\w\k*>(<%(let|set|show|import|include))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
+if g:typst_conceal_emoji
+    runtime! syntax/typst-emoji.vim
+endif
+
+
 " Hashtag > Functions {{{2
 syntax cluster typstHashtagFunctions
     \ contains=typstHashtagFunction

@@ -17,6 +17,7 @@ something now rather than waiting for everything later.
 - Compile the active document with `:make`.
 - Concealing for italic, bold. Can be enabled with `g:typst_conceal`.
 - Concealing symbols in math mode. Can be enabled with `g:typst_conceal_math`.
+- Emojis! Can be enabled with `g:typst_conceal_emoji`.
 
 **Possible features**
 - Formatting using [this](https://github.com/astrale-sharp/typst-fmt/)?
@@ -77,6 +78,9 @@ call plug#end()
     Enable concealment for math symbols in math mode (i.e. replaces symbols
     with their actual unicode character). **OBS**: this can affect performance,
     see issue [#64](https://github.com/kaarmu/typst.vim/issues/64).
+    *Default:* `g:typst_conceal`
+- `g:typst_conceal_emoji`:
+    Enable concealing emojis, e.g. `#emoji.alien` becomes 👽.
     *Default:* `g:typst_conceal`
 - `g:typst_auto_close_toc`:
     Specifies whether TOC will be automatically closed after using it.
