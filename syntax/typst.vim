@@ -54,8 +54,14 @@ syntax keyword typstCodeKeyword
     \ not in and or return
 syntax region typstCodeStatement
     \ contained
-    \ matchgroup=typstCodeStatementWord start=/\v(let|set|show|import|include)>-@!/ end=/\v%(;|$)/
+    \ matchgroup=typstCodeStatementWord start=/\v(let|set|import|include)>/ 
+    \ matchgroup=Noise end=/\v%(;|$)/
     \ contains=@typstCode
+syntax region typstCodeStatement
+    \ matchgroup=typstCodeStatementWord start=/show/ 
+    \ matchgroup=Noise end=/\v%(:|$)/ keepend
+    \ contains=@typstCode 
+    \ skipwhite nextgroup=@typstCode
 
 " Code > Identifiers {{{2
 syntax cluster typstCodeIdentifiers
@@ -162,29 +168,35 @@ syntax cluster typstHashtagKeywords
 " syntax match typstHashtagControlFlowError
 "     \ /\v#%(if|while|for)>-@!.{-}$\_.{-}%(\{|\[|\()/
 syntax match typstHashtagControlFlow
-    \ /\v#%(if|while|for)>-@!.{-}\ze%(\{|\[|\()/
+    \ /\v#%(if|while|for)>.{-}\ze%(\{|\[|\()/
     \ contains=typstHashtagConditional,typstHashtagRepeat 
     \ nextgroup=@typstCode
 syntax region typstHashtagConditional
     \ contained
-    \ start=/\v#if>-@!/ end=/\v\ze(\{|\[)/
+    \ start=/\v#if>/ end=/\v\ze(\{|\[)/
     \ contains=@typstCode
 syntax region typstHashtagRepeat
     \ contained
-    \ start=/\v#(while|for)>-@!/ end=/\v\ze(\{|\[)/
+    \ start=/\v#(while|for)>/ end=/\v\ze(\{|\[)/
     \ contains=@typstCode
 syntax match typstHashtagKeyword
-    \ /\v#(return)>-@!/
+    \ /\v#(return)>/
     \ skipwhite nextgroup=@typstCode
 syntax region typstHashtagStatement
-    \ matchgroup=typstHashtagStatementWord start=/\v#(let|set|show|import|include)>-@!/ end=/\v%(;|$)/
+    \ matchgroup=typstHashtagStatementWord start=/\v#(let|set|import|include)>/ 
+    \ matchgroup=Noise end=/\v%(;|$)/
     \ contains=@typstCode
+syntax region typstHashtagStatement
+    \ matchgroup=typstHashtagStatementWord start=/#show/ 
+    \ matchgroup=Noise end=/\v%(:|$)/ keepend
+    \ contains=@typstCode 
+    \ skipwhite nextgroup=@typstCode
 
 " Hashtag > Constants {{{2
 syntax cluster typstHashtagConstants
     \ contains=typstHashtagConstant
 syntax match typstHashtagConstant
-    \ /\v#(none|auto|true|false)>-@!/
+    \ /\v#(none|auto|true|false)>/
 
 " Hashtag > Identifiers {{{2
 syntax cluster typstHashtagIdentifiers
