@@ -362,6 +362,7 @@ syntax region typstMarkupDollar
 syntax cluster typstMath
     \ contains=@typstCommon
             \ ,@typstHashtag
+            \ ,typstMathIdentifier
             \ ,typstMathFunction
             \ ,typstMathNumber
             \ ,typstMathSymbol
@@ -369,6 +370,9 @@ syntax cluster typstMath
             \ ,typstMathScripts
             \ ,typstMathQuote
 
+syntax match typstMathIdentifier
+    \ /\a\a\+/
+    \ contained
 syntax match typstMathFunction
     \ /\a\a\+\ze(/
     \ contained
@@ -385,6 +389,7 @@ endif
 
 
 " Math > Linked groups {{{2
+highlight default link typstMathIdentifier          Identifier
 highlight default link typstMathFunction            Statement
 highlight default link typstMathNumber              Number
 highlight default link typstMathSymbol              Statement
