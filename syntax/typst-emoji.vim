@@ -1350,6 +1350,6 @@ let s:typstEmojiList = [
 \ ]
 
 for typmath in s:typstEmojiList
-    exe "syn match typstMarkupEmoji '#emoji\.".typmath[0]."' conceal cchar=".typmath[1]
+    exe "syn match typstMarkupEmoji '#emoji\.".typmath[0]."\\>' conceal cchar=".typmath[1]
 endfor
 
