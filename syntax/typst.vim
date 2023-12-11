@@ -468,4 +468,4 @@ highlight default link typstMarkupItalicDelimiter       typstMarkupItalic
 
 let b:current_syntax = "typst"
 
-" vim: foldlevel=0 tabstop=8 shiftwidth=4 softtabstop=4 expandtab
+" vim: foldmethod=marker foldlevel=0 tabstop=8 shiftwidth=4 softtabstop=4 expandtab
