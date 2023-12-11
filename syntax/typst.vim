@@ -58,9 +58,15 @@ syntax region typstCodeStatement
     \ matchgroup=Noise end=/\v%(;|$)/
     \ contains=@typstCode
 syntax region typstCodeStatement
-    \ matchgroup=typstCodeStatementWord start=/show/ 
+    \ contained
+    \ matchgroup=typstCodeStatementWord start=/show/
     \ matchgroup=Noise end=/\v%(:|$)/ keepend
-    \ contains=@typstCode 
+    \ contains=@typstCode
+    \ skipwhite nextgroup=@typstCode,typstCodeShowRocket
+syntax match typstCodeShowRocket
+    \ contained
+    \ /.*=>/
+    \ contains=@typstCode
     \ skipwhite nextgroup=@typstCode
 
 " Code > Identifiers {{{2
@@ -190,7 +196,7 @@ syntax region typstHashtagStatement
     \ matchgroup=typstHashtagStatementWord start=/#show/ 
     \ matchgroup=Noise end=/\v%(:|$)/ keepend
     \ contains=@typstCode 
-    \ skipwhite nextgroup=@typstCode
+    \ skipwhite nextgroup=@typstCode,typstCodeShowRocket
 
 " Hashtag > Constants {{{2
 syntax cluster typstHashtagConstants
