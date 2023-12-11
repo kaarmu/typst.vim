@@ -54,7 +54,7 @@ syntax keyword typstCodeKeyword
     \ not in and or return
 syntax region typstCodeStatement
     \ contained
-    \ matchgroup=typstCodeStatementWord start=/\v(let|set|import|include)>/ 
+    \ matchgroup=typstCodeStatementWord start=/\v(let|set|import|include)>/
     \ matchgroup=Noise end=/\v%(;|$)/
     \ contains=@typstCode
 syntax region typstCodeStatement
@@ -105,7 +105,7 @@ syntax cluster typstCodeConstants
             \ ,typstCodeString
 syntax match typstCodeConstant
     \ contained
-    \ /\v<%(none|auto|true|false)-@!>/ 
+    \ /\v<%(none|auto|true|false)-@!>/
 syntax match typstCodeNumberInteger
     \ contained
     \ /\v<\d+>/
@@ -175,7 +175,7 @@ syntax cluster typstHashtagKeywords
 "     \ /\v#%(if|while|for)>-@!.{-}$\_.{-}%(\{|\[|\()/
 syntax match typstHashtagControlFlow
     \ /\v#%(if|while|for)>.{-}\ze%(\{|\[|\()/
-    \ contains=typstHashtagConditional,typstHashtagRepeat 
+    \ contains=typstHashtagConditional,typstHashtagRepeat
     \ nextgroup=@typstCode
 syntax region typstHashtagConditional
     \ contained
@@ -189,13 +189,13 @@ syntax match typstHashtagKeyword
     \ /\v#(return)>/
     \ skipwhite nextgroup=@typstCode
 syntax region typstHashtagStatement
-    \ matchgroup=typstHashtagStatementWord start=/\v#(let|set|import|include)>/ 
+    \ matchgroup=typstHashtagStatementWord start=/\v#(let|set|import|include)>/
     \ matchgroup=Noise end=/\v%(;|$)/
     \ contains=@typstCode
 syntax region typstHashtagStatement
-    \ matchgroup=typstHashtagStatementWord start=/#show/ 
+    \ matchgroup=typstHashtagStatementWord start=/#show/
     \ matchgroup=Noise end=/\v%(:|$)/ keepend
-    \ contains=@typstCode 
+    \ contains=@typstCode
     \ skipwhite nextgroup=@typstCode,typstCodeShowRocket
 
 " Hashtag > Constants {{{2
@@ -276,8 +276,8 @@ syntax cluster typstMarkupText
 syntax match typstMarkupRawInline
     \ /`.\{-}`/
 
-syntax region typstMarkupRawBlock 
-    \ matchgroup=Macro start=/```\w*/ 
+syntax region typstMarkupRawBlock
+    \ matchgroup=Macro start=/```\w*/
     \ matchgroup=Macro end=/```/ keepend
 syntax region typstCodeBlock
     \ matchgroup=Macro start=/```typst/
@@ -287,11 +287,11 @@ syntax region typstMarkupCCodeBlock
     \ matchgroup=Macro start=/```c\>/
     \ matchgroup=Macro end=/```/ contains=@C keepend
 syntax include @CPP syntax/cpp.vim
-syntax region typstMarkupCPPCodeBlock 
+syntax region typstMarkupCPPCodeBlock
     \ matchgroup=Macro start=/```cpp/
     \ matchgroup=Macro end=/```/ contains=@CPP keepend
 syntax include @Python syntax/python.vim
-syntax region typstMarkupPythonCodeBlock 
+syntax region typstMarkupPythonCodeBlock
     \ matchgroup=Macro start=/```python/
     \ matchgroup=Macro end=/```/ contains=@Python keepend
 
@@ -316,13 +316,13 @@ syntax match typstMarkupItalic
 if g:typst_conceal
     syntax region typstMarkupItalicRegion
         \ contained
-        \ matchgroup=typstMarkupItalicDelimiter 
+        \ matchgroup=typstMarkupItalicDelimiter
         \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
         \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
 else
     syntax region typstMarkupItalicRegion
         \ contained
-        \ matchgroup=typstMarkupItalicDelimiter 
+        \ matchgroup=typstMarkupItalicDelimiter
         \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
         \ contains=typstMarkupLabel,typstMarkupBold,@Spell
 endif
@@ -334,13 +334,13 @@ syntax match typstMarkupBold
 if g:typst_conceal
     syntax region typstMarkupBoldRegion
         \ contained
-        \ matchgroup=typstMarkupBoldDelimiter 
+        \ matchgroup=typstMarkupBoldDelimiter
         \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
         \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
-else 
+else
     syntax region typstMarkupBoldRegion
         \ contained
-        \ matchgroup=typstMarkupBoldDelimiter 
+        \ matchgroup=typstMarkupBoldDelimiter
         \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
         \ contains=typstMarkupLabel,typstMarkupBold,@Spell
 endif
