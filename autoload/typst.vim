@@ -23,37 +23,55 @@ function! typst#TypstWatch(...)
 endfunction
 
 " Detect context for #51
-" Works the same as in vimtex
-function! typst#synstack(...) abort 
-    let l:pos = a:0 > 0 ? [a:1, a:2] : [line('.'), col('.')]
+" Detects the inner most syntax group under the cursor by default.
+function! typst#synstack(kwargs = {}) abort 
+    let l:pos = get(a:kwargs, 'pos', getcurpos()[1:3])
+    let l:only_inner = get(a:kwargs, 'only_inner', v:true)
     if mode() ==# 'i'
         let l:pos[1] -= 1
     endif
     call map(l:pos, 'max([v:val, 1])')
 
-    return map(synstack(l:pos[0], l:pos[1]), "synIDattr(v:val, 'name')")
+    let l:stack = map(synstack(l:pos[0], l:pos[1]), "synIDattr(v:val, 'name')")
+    return l:only_inner ? l:stack[-1:] : l:stack
 endfunction
 
 function! typst#in_markup(...) abort
     let l:stack = call('typst#synstack', a:000)
-    return   empty(l:stack)
-        \ || l:stack[-1] =~? '^typstMarkup'
-        \ || l:stack[-1] =~? 'Bracket$'
+    let l:ret = empty(l:stack)
+    for l:name in l:stack
+        let l:ret = l:ret 
+            \ || l:name =~? '^typstMarkup'
+            \ || l:name =~? 'Bracket$'
+    endfor
+    return l:ret
 endfunction
 
 function! typst#in_code(...) abort
-    let l:stack = call('typst#synstack', a:000)
-    return   l:stack[-1] =~? '^typstCode'
-        \ || l:stack[-1] =~? 'Brace$'
+    let l:ret = v:false
+    for l:name in call('typst#synstack', a:000)
+        let l:ret = l:ret 
+            \ || l:name =~? '^typstCode'
+            \ || l:name =~? 'Brace$'
+    endfor 
+    return l:ret
 endfunction
 
 function! typst#in_math(...) abort
-    let l:stack = call('typst#synstack', a:000)
-    return   l:stack[-1] =~? '^typstMath'
-        \ || l:stack[-1] =~? 'Dollar$'
+    let l:ret = v:false
+    for l:name in call('typst#synstack', a:000)
+        let l:ret = l:ret 
+            \ || l:name =~? '^typstMath'
+            \ || l:name =~? 'Dollar$'
+    endfor
+    return l:ret
 endfunction
 
 function! typst#in_comment(...) abort
-    let l:stack = call('typst#synstack', a:000)
-    return l:stack[-1] =~? '^typstComment'
+    let l:ret = v:false
+    for l:name in call('typst#synstack', a:000)
+        let l:ret = l:ret 
+            \ || l:name =~? '^typstComment'
+    endfor
+    return l:ret
 endfunction
