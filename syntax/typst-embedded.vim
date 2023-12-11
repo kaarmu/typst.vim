@@ -9,7 +9,7 @@ for s:name in g:typst_embedded_languages
     let s:rule = ['syn region'
                 \,s:name
                 \,'matchgroup=Macro'
-                \,'start=/```'..s:name..'/ end=/```/' 
+                \,'start=/```'..s:name..'\>/ end=/```/' 
                 \,'contains=@typstEmbedded_'..s:name 
                 \,'keepend']
     if g:typst_conceal
