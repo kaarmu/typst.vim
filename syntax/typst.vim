@@ -1,7 +1,6 @@
 " Vim syntax file
 " Language: Typst
 " Maintainer: Kaj Munhoz Arfvidsson
-" Latest Revision: Apr 2023
 
 if exists("b:current_syntax")
   finish
@@ -279,21 +278,17 @@ syntax match typstMarkupRawInline
 syntax region typstMarkupRawBlock
     \ matchgroup=Macro start=/```\w*/
     \ matchgroup=Macro end=/```/ keepend
-syntax region typstCodeBlock
-    \ matchgroup=Macro start=/```typst/
-    \ matchgroup=Macro end=/```/ contains=@typstCode keepend
-syntax include @C syntax/c.vim
-syntax region typstMarkupCCodeBlock
-    \ matchgroup=Macro start=/```c\>/
-    \ matchgroup=Macro end=/```/ contains=@C keepend
-syntax include @CPP syntax/cpp.vim
-syntax region typstMarkupCPPCodeBlock
-    \ matchgroup=Macro start=/```cpp/
-    \ matchgroup=Macro end=/```/ contains=@CPP keepend
-syntax include @Python syntax/python.vim
-syntax region typstMarkupPythonCodeBlock
-    \ matchgroup=Macro start=/```python/
-    \ matchgroup=Macro end=/```/ contains=@Python keepend
+if g:typst_conceal
+    syntax region typstMarkupCodeBlockTypst
+        \ matchgroup=Macro start=/```typst/
+        \ matchgroup=Macro end=/```/ contains=@typstCode keepend
+        \ concealends
+else
+    syntax region typstMarkupCodeBlockTypst
+        \ matchgroup=Macro start=/```typst/
+        \ matchgroup=Macro end=/```/ contains=@typstCode keepend
+endif
+runtime! syntax/typst-embedded.vim
 
 syntax match typstMarkupLabel
     \ /\v\<\K%(\k*-*)*\>/

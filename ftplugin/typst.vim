@@ -4,12 +4,8 @@ if exists("b:did_ftplugin")
 endif
 
 function! s:declare_option(option, value)
-    if !exists('g:' . a:option)
-        if type(a:value) == type(1)
-            exec 'let g:'.a:option.' = '.a:value
-        elseif type(a:value) == type('')
-            exec 'let g:'.a:option.' = "'.a:value.'"'
-        endif
+    if !exists('g:'..a:option)
+        exec 'let g:'..a:option..' = '..string(a:value)
     endif
 endfunction
 
@@ -20,6 +16,7 @@ call s:declare_option('typst_conceal_math', g:typst_conceal)
 call s:declare_option('typst_conceal_emoji', g:typst_conceal)
 call s:declare_option('typst_auto_close_toc', 0)
 call s:declare_option('typst_auto_open_quickfix', 1)
+call s:declare_option('typst_embedded_languages', [])
 
 let b:did_ftplugin = 1
 

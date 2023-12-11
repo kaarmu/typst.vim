@@ -18,6 +18,7 @@ something now rather than waiting for everything later.
 - Concealing for italic, bold. Can be enabled with `g:typst_conceal`.
 - Concealing symbols in math mode. Can be enabled with `g:typst_conceal_math`.
 - Emojis! Can be enabled with `g:typst_conceal_emoji`.
+- Syntax highlighting of code blocks. See `g:typst_embedded_languages`.
 
 **Possible features**
 - Formatting using [this](https://github.com/astrale-sharp/typst-fmt/)?
@@ -88,6 +89,9 @@ call plug#end()
 - `g:typst_auto_open_quickfix`:
     Specifies whether the quickfix list should automatically open when there are errors from typst.
     *Default:* `1`
+- `g:typst_embedded_languages`:
+    A list of languages that will be highlighted in code blocks. Typst is always highlighted.
+    *Default:* `[]`
 
 ### Commands
 
