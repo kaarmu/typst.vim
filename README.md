@@ -72,7 +72,7 @@ call plug#end()
 - `g:typst_pdf_viewer`:
     Specifies pdf viewer that `typst watch --open` will use.
     *Default:* `''`
-- `gtypst_conceal`:
+- `g:typst_conceal`:
     Enable concealment.
     *Default:* `0`
 - `g:typst_conceal_math`:
