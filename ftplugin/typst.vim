@@ -41,7 +41,12 @@ setlocal commentstring=//%s
 setlocal comments=s1:/*,mb:*,ex:*/,://
 
 setlocal formatoptions+=croq
-setlocal iskeyword=a-z,A-Z,48-57,_,-
+
+if has('win32')
+    setlocal iskeyword=a-z,A-Z,48-57,_,-,128-167,224-235
+else
+    setlocal iskeyword=a-z,A-Z,48-57,_,-,192-255
+endif
 
 setlocal suffixesadd=.typ
 
