@@ -151,7 +151,7 @@ syntax region typstCodeBracket
     \ contains=@typstMarkup
 syntax region typstCodeDollar
     \ contained
-    \ matchgroup=Number start=/\$/ end=/\$/
+    \ matchgroup=Number start=/\\\@<!\$/ end=/\\\@<!\$/
     \ contains=@typstMath
 
 
@@ -241,7 +241,7 @@ syntax region typstHashtagBracket
     \ matchgroup=Noise start=/#\[/ end=/\]/
     \ contains=@typstMarkup
 syntax region typstHashtagDollar
-    \ matchgroup=Noise start=/#\$/ end=/\$/
+    \ matchgroup=Noise start=/#\$/ end=/\\\@<!\$/
     \ contains=@typstMath
 
 
@@ -360,7 +360,7 @@ syntax region typstMarkupBracket
     \ matchgroup=Noise start=/\[/ end=/\]/
     \ contains=@typstMarkup
 syntax region typstMarkupDollar
-    \ matchgroup=Special start=/\$/ skip=/\\\$/ end=/\$/
+    \ matchgroup=Special start=/\\\@<!\$/ end=/\\\@<!\$/
     \ contains=@typstMath
 
 
