@@ -15,7 +15,7 @@ for s:name in g:typst_embedded_languages
     if g:typst_conceal
         let s:rule += ['concealends']
     endif 
-    execute join(s:include, ' ')
+    execute 'silent! ' .. join(s:include, ' ')
     unlet! b:current_syntax
     execute join(s:rule, ' ')
 endfor
