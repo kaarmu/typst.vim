@@ -2,9 +2,9 @@
 " Language: Typst
 " Maintainer: Kaj Munhoz Arfvidsson
 
-if exists("b:current_syntax")
-  finish
-endif
+if exists("b:current_syntax") | finish | endif
+
+call typst#options#init()
 
 syntax sync fromstart
 syntax spell toplevel

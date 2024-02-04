@@ -1,27 +1,11 @@
 " Only do this when not done yet for this buffer
-if exists("b:did_ftplugin")
-  finish
-endif
-
-function! s:declare_option(option, value)
-    if !exists('g:'..a:option)
-        exec 'let g:'..a:option..' = '..string(a:value)
-    endif
-endfunction
-
-call s:declare_option('typst_cmd', 'typst')
-call s:declare_option('typst_pdf_viewer', '')
-call s:declare_option('typst_conceal', 0)
-call s:declare_option('typst_conceal_math', g:typst_conceal)
-call s:declare_option('typst_conceal_emoji', g:typst_conceal)
-call s:declare_option('typst_auto_close_toc', 0)
-call s:declare_option('typst_auto_open_quickfix', 1)
-call s:declare_option('typst_embedded_languages', [])
-
+if exists("b:did_ftplugin") | finish | endif
 let b:did_ftplugin = 1
 
 let s:cpo_orig = &cpo
 set cpo&vim
+
+call typst#options#init()
 
 compiler typst
 
@@ -59,4 +43,5 @@ command! -buffer Toct call typst#Toc('tab')
 
 let &cpo = s:cpo_orig
 unlet s:cpo_orig
+
 " vim: tabstop=8 shiftwidth=4 softtabstop=4 expandtab
