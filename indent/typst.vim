@@ -27,7 +27,7 @@ function! TypstIndent(lnum) abort " {{{1
       let ind = ind + s:sw
     endif
 
-    if l:line =~ '\v[\}\]\)]$'
+    if l:line =~ '\v^\s*[\}\]\)],*$'
       let ind = ind - s:sw
     endif
 
