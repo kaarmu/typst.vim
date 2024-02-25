@@ -349,8 +349,9 @@ syntax match typstMarkupDash
     \ /-\{2,3}/
 syntax match typstMarkupEllipsis
     \ /\.\.\./
-syntax match typstMarkupTermList
-    \ #\v^\s*\/\s+[^:]*:#
+syntax region typstMarkupTermList
+    \ oneline start=/\v^\s*\/\s/ end=/:/
+    \ contains=@typstMarkup
 
 " Markup > Parens {{{2
 syntax cluster typstMarkupParens
