@@ -21,16 +21,17 @@ function! TypstIndent(lnum) abort " {{{1
 
     let l:line = getline(a:lnum)
     let l:pline = getline(l:plnum)
+    let l:ind = indent(l:plnum)
 
     if l:pline =~ '\v[\{\[\(]\s*$'
-      return indent(l:plnum) + s:sw
+      let l:ind = l:ind + s:sw
     endif
 
-    if l:line =~ '\v[\}\]\)]$'
-      return indent(a:lnum) - s:sw
+    if l:line =~ '\v^\s*[\}\]\)],*$'
+      let l:ind = l:ind - s:sw
     endif
 
-    return indent(l:plnum)
+    return l:ind
 endfunction
 " }}}1
 
