@@ -19,27 +19,13 @@ endfunction
 function! TypstIndent(lnum) abort " {{{1
     let s:sw = shiftwidth()
 
-    let l:plnum = prevnonblank(a:lnum - 1)
-    if l:plnum == 0 
-        return 0 
-    endif
-
-    let l:pline = getline(l:plnum)
-
-    " Skip comment lines
-    while l:pline =~ '\v//.*$'
-        let l:plnum = prevnonblank(l:plnum - 1)
-        if l:plnum == 0 
-            return 0 
-        endif
-
-        let l:pline = getline(l:plnum)
-    endwhile
+    let [l:plnum, l:pline] = s:get_prev_nonblank(a:lnum - 1)
+    if l:plnum == 0 | return 0 | endif
 
     let l:line = getline(a:lnum)
     let l:ind = indent(l:plnum)
 
-    let l:stack = [''] + map(synstack(v:lnum , 1), "synIDattr(v:val, 'name')")
+    let l:stack = [''] + map(synstack(v:lnum, 1), "synIDattr(v:val, 'name')")
 
     " Use last indent for block comments
     if l:stack[-1] == 'typstCommentBlock'
@@ -55,6 +41,26 @@ function! TypstIndent(lnum) abort " {{{1
     endif
 
     return l:ind
+endfunction
+" }}}1
+
+" Gets the previous non-blank line that is not a comment.
+function! s:get_prev_nonblank(lnum) abort " {{{1
+    let l:lnum = prevnonblank(a:lnum)
+    let l:line = getline(l:lnum)
+
+    while l:lnum > 0 && l:line =~ '^\s*//'
+        let l:lnum = prevnonblank(l:lnum - 1)
+        let l:line = getline(l:lnum)
+    endwhile
+
+    return [l:lnum, s:remove_comments(l:line)]
+endfunction
+" }}}1
+
+" Removes comments from the given line.
+function! s:remove_comments(line) abort " {{{1
+    return substitute(a:line, '\s*//.*', '', '')
 endfunction
 " }}}1
 
