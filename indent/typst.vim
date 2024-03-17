@@ -25,10 +25,10 @@ function! TypstIndent(lnum) abort " {{{1
     let l:line = getline(a:lnum)
     let l:ind = indent(l:plnum)
 
-    let l:stack = [''] + map(synstack(v:lnum, 1), "synIDattr(v:val, 'name')")
+    let l:synname = synIDattr(synID(a:lnum, 1, 1), "name")
 
     " Use last indent for block comments
-    if l:stack[-1] == 'typstCommentBlock'
+    if l:synname == 'typstCommentBlock'
         return l:ind
     endif
 
