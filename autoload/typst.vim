@@ -4,8 +4,8 @@ function! typst#TypstWatch(...)
     " `typst <args> watch <file> --open` so in the future this might be
     " sensitive to in which order typst options should come.
     let l:cmd = g:typst_cmd
-        \ . ' ' . join(a:000)
         \ . ' watch'
+        \ . ' ' . join(a:000)
         \ . ' --diagnostic-format short'
         \ . " '" . expand('%') . "'"
 
