@@ -4,6 +4,7 @@ let s:initialized = v:false
 function! typst#options#init() abort " {{{1
     if s:initialized | return | endif
 
+    call s:declare_option('typst_syntax_highlight', 1)
     call s:declare_option('typst_cmd', 'typst')
     call s:declare_option('typst_pdf_viewer', '')
     call s:declare_option('typst_conceal', 0)
