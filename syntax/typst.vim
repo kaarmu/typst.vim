@@ -5,6 +5,7 @@
 if exists("b:current_syntax") | finish | endif
 
 call typst#options#init()
+if !g:typst_syntax_highlight | finish | endif
 
 syntax sync fromstart
 syntax spell toplevel

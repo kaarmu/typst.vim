@@ -66,6 +66,9 @@ call plug#end()
 
 ### Options
 
+- `g:typst_syntax_highlight`:
+    Enable syntax highlighting.
+    *Default:* `1`
 - `g:typst_cmd`:
     Specifies the location of the Typst executable.
     *Default:* `'typst'`
