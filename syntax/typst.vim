@@ -374,15 +374,18 @@ syntax cluster typstMath
             \ ,typstMathFunction
             \ ,typstMathNumber
             \ ,typstMathSymbol
-            \ ,typstMathBold
-            \ ,typstMathScripts
             \ ,typstMathQuote
+            \ ,typstMathSpecialLetter
 
 syntax match typstMathIdentifier
     \ /\a\a\+/
     \ contained
+syntax match typstMathSymbol
+    \ /\a[a-z._^]*[a-zA-Z0-9]\+/
+    \ contained
+    \ contains=typstMathLiteral,typstMathScripts
 syntax match typstMathFunction
-    \ /\a\a\+\ze(/
+    \ /\a\+\ze(/
     \ contained
 syntax match typstMathNumber
     \ /\<\d\+\>/
@@ -390,6 +393,10 @@ syntax match typstMathNumber
 syntax region typstMathQuote
     \ matchgroup=String start=/"/ skip=/\\"/ end=/"/
     \ contained
+syntax match typstMathSpecialLetter
+    \ /\a\{2,3}([a-zA-Z0-9])/
+    \ contained
+    \ contains=typstMathFontCal,typstMathFontBB
 
 if g:typst_conceal_math
     runtime! syntax/typst-symbols.vim
@@ -400,7 +407,6 @@ endif
 highlight default link typstMathIdentifier          Identifier
 highlight default link typstMathFunction            Statement
 highlight default link typstMathNumber              Number
-highlight default link typstMathSymbol              Statement
 
 " Highlighting {{{1
 
