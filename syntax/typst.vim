@@ -264,6 +264,7 @@ syntax cluster typstMarkupText
             \ ,typstMarkupHeading
             \ ,typstMarkupBulletList
             \ ,typstMarkupEnumList
+            \ ,typstMarkupTermList
             \ ,typstMarkupBold
             \ ,typstMarkupItalic
             \ ,typstMarkupLinebreak
@@ -271,11 +272,10 @@ syntax cluster typstMarkupText
             \ ,typstMarkupShy
             \ ,typstMarkupDash
             \ ,typstMarkupEllipsis
-            \ ,typstMarkupTermList
 
+" Raw Text
 syntax match typstMarkupRawInline
     \ /`.\{-}`/
-
 syntax region typstMarkupRawBlock
     \ matchgroup=Macro start=/```\w*/
     \ matchgroup=Macro end=/```/ keepend
@@ -291,68 +291,78 @@ else
 endif
 runtime! syntax/typst-embedded.vim
 
+" Label & Reference
 syntax match typstMarkupLabel
     \ /\v\<\K%(\k*-*)*\>/
 syntax match typstMarkupReference
     \ /\v\@\K%(\k*-*)*/
+
+" URL
 syntax match typstMarkupUrl
     \ #\v\w+://\S*#
+
+" Heading
 syntax match typstMarkupHeading
     \ /^\s*\zs=\{1,6}\s.*$/
     \ contains=typstMarkupLabel,@Spell
+
+" Lists
 syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
-" syntax match typstMarkupItalicError
-"     \ /\v(\w|\\)@<!_\S@=.*|.*\S@<=\\@<!_/
-syntax match typstMarkupItalic
-    \ /\v(\w|\\)@1<!_\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!_/
-    \ contains=typstMarkupItalicRegion
-if g:typst_conceal
-    syntax region typstMarkupItalicRegion
-        \ contained
-        \ matchgroup=typstMarkupItalicDelimiter
-        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
-        \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
-else
-    syntax region typstMarkupItalicRegion
-        \ contained
-        \ matchgroup=typstMarkupItalicDelimiter
-        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
-        \ contains=typstMarkupLabel,typstMarkupBold,@Spell
-endif
-" syntax match typstMarkupBoldError
-"     \ /\v(\w|\\)@<!\*\S@=.*|.*\S@<=\\@<!\*/
+syntax region typstMarkupTermList
+    \ oneline start=/\v^\s*\/\s/ end=/:/
+    \ contains=@typstMarkup
+
+" Bold & Italic
 syntax match typstMarkupBold
     \ /\v(\w|\\)@1<!\*\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!\*/
     \ contains=typstMarkupBoldRegion
+syntax match typstMarkupItalic
+    \ /\v(\w|\\)@1<!_\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!_/
+    \ contains=typstMarkupItalicRegion
+syntax match typstMarkupBoldItalic
+    \ contained
+    \ /\v(\w|\\)@1<![_\*]\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!\2/
+    \ contains=typstMarkupBoldRegion,typstMarkupItalicRegion
 if g:typst_conceal
     syntax region typstMarkupBoldRegion
         \ contained
-        \ matchgroup=typstMarkupBoldDelimiter
+        \ transparent matchgroup=typstMarkupBold
         \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
-        \ concealends contains=typstMarkupLabel,typstMarkupBold,@Spell
+        \ concealends contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+    syntax region typstMarkupItalicRegion
+        \ contained
+        \ transparent matchgroup=typstMarkupItalic
+        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
+        \ concealends contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
 else
     syntax region typstMarkupBoldRegion
         \ contained
-        \ matchgroup=typstMarkupBoldDelimiter
+        \ transparent matchgroup=typstMarkupBold
         \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
-        \ contains=typstMarkupLabel,typstMarkupBold,@Spell
+        \ contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+    syntax region typstMarkupItalicRegion
+        \ contained
+        \ transparent matchgroup=typstMarkupItalic
+        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
+        \ contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
 endif
+
+" Linebreak & Special Whitespace
 syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
     \ /\~/
 syntax match typstMarkupShy
     \ /-?/
+
+" Special Symbols
 syntax match typstMarkupDash
     \ /-\{2,3}/
 syntax match typstMarkupEllipsis
     \ /\.\.\./
-syntax region typstMarkupTermList
-    \ oneline start=/\v^\s*\/\s/ end=/:/
-    \ contains=@typstMarkup
 
 " Markup > Parens {{{2
 syntax cluster typstMarkupParens
@@ -461,11 +471,9 @@ highlight! Conceal ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 
 highlight default typstMarkupHeading                    term=underline,bold     cterm=underline,bold    gui=underline,bold
 highlight default typstMarkupUrl                        term=underline          cterm=underline         gui=underline
-highlight default typstMarkupBoldRegion                 term=bold               cterm=bold              gui=bold
-highlight default typstMarkupItalicRegion               term=italic             cterm=italic            gui=italic
-
-highlight default link typstMarkupBoldDelimiter         typstMarkupBold
-highlight default link typstMarkupItalicDelimiter       typstMarkupItalic
+highlight default typstMarkupBold                       term=bold               cterm=bold              gui=bold
+highlight default typstMarkupItalic                     term=italic             cterm=italic            gui=italic
+highlight default typstMarkupBoldItalic                 term=bold,italic        cterm=bold,italic       gui=bold,italic
 
 " }}}1
 
