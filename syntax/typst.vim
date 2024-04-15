@@ -103,6 +103,7 @@ syntax cluster typstCodeConstants
             \ ,typstCodeNumberRatio
             \ ,typstCodeNumberFraction
             \ ,typstCodeString
+            \ ,typstCodeLabel
 syntax match typstCodeConstant
     \ contained
     \ /\v<%(none|auto|true|false)-@!>/
@@ -129,6 +130,9 @@ syntax region typstCodeString
     \ contained
     \ start=/"/ skip=/\v\\\\|\\"/ end=/"/
     \ contains=@Spell
+syntax match typstCodeLabel
+    \ contained
+    \ /\v\<\K%(\k*-*)*\>/
 
 " Code > Parens {{{2
 syntax cluster typstCodeParens
@@ -429,6 +433,7 @@ highlight default link typstCodeNumberAngle         Number
 highlight default link typstCodeNumberRatio         Number
 highlight default link typstCodeNumberFraction      Number
 highlight default link typstCodeString              String
+highlight default link typstCodeLabel               Structure
 highlight default link typstCodeStatementWord       Statement
 highlight default link typstCodeIdentifier          Identifier
 highlight default link typstCodeFieldAccess         Identifier
