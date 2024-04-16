@@ -1,3 +1,18 @@
+" Result: 0.074423936259251
+" <main branch>
+
+" Result: 0.070712042167453
+let s:before = ""
+let s:after = "[a-zA-Z0-9\\.]\\@!"
+
+" Result: 0.285711964167373
+" let s:before = "\\.\\@1<!"
+" let s:after = "\\>\\.\\@!"
+
+" Result: 0.278954332167349
+" let s:before = "[A-Za-z0-9\\.]\\@1<!"
+" let s:after = "\\>\\.\\@!"
+
 let s:typstMathList=[
     \ ['space', '␣'],
     \ ['paren\.l', '('],
@@ -906,7 +921,7 @@ let s:typstMathList=[
 for typmath in s:typstMathList
     "exe "syn match typstMathSymbol '\\(\\<\\|_\\)\\zs".typmath[0]."\\ze\\(\\>[^.]\\|_\\|$\\)' contained conceal cchar=".typmath[1]
     " exe "syn match typstMathSymbol '\\a\\@<!".typmath[0]."\\a\\@!' contained conceal cchar=".typmath[1]
-    exe "syn match typstMathLiteral '".typmath[0]."[a-zA-Z0-9]\\@!' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathLiteral '".s:before.typmath[0].s:after."' contained conceal cchar=".typmath[1]
 endfor
 
 let s:typstMathList2=[
@@ -951,7 +966,7 @@ let s:typstMathList2=[
 
 for typmath in s:typstMathList2
     "exe "syn match typstMathSymbol '\\(\\<\\|^\\|\\w\\|\\s\\|\\$\\)\\zs".typmath[0]."\\ze\\(\\w\\|\\s\\|$\\|\\$\\)' contained conceal cchar=".typmath[1]
-    exe "syn match typstMathLiteral '".typmath[0]."[a-zA-Z0-9]\\@!' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathLiteral '".s:before.typmath[0].s:after."' contained conceal cchar=".typmath[1]
 endfor
 
 let s:typstCalList=[
@@ -1134,7 +1149,7 @@ let s:typstSubList=[
 \ ]
 
 for typmath in s:typstSubList
-    exe "syn match typstMathScripts '_".typmath[0]."[a-zA-Z0-9]\\@!' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathScripts '_".s:before.typmath[0].s:after."' contained conceal cchar=".typmath[1]
 endfor
 
 let s:typstSupList=[
@@ -1156,6 +1171,6 @@ let s:typstSupList=[
 \ ]
 
 for typmath in s:typstSupList
-    exe "syn match typstMathScripts '\\^".typmath[0]."[a-zA-Z0-9]\\@!' contained conceal cchar=".typmath[1]
+    exe "syn match typstMathScripts '\\^".s:before.typmath[0].s:after."' contained conceal cchar=".typmath[1]
 endfor
 
