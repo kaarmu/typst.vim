@@ -1,3 +1,8 @@
+" Vim syntax file
+" Language: Typst
+" Maintainer: Kaj Munhoz Arfvidsson
+" Upstream: https://github.com/kaarmu/typst.vim
+
 let s:typstMathList=[
     \ ['space', '␣'],
     \ ['paren\.l', '('],
@@ -1079,3 +1084,5 @@ let s:typstSupList=[
 for typmath in s:typstSupList
     exe "syn match typstMathScripts '\\^".typmath[0]."' contained conceal cchar=".typmath[1]
 endfor
+
+" vim: sw=4 sts=4 et fdm=marker fdl=0 

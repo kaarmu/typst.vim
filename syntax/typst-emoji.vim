@@ -1,3 +1,8 @@
+" Vim syntax file
+" Language: Typst
+" Maintainer: Kaj Munhoz Arfvidsson
+" Upstream: https://github.com/kaarmu/typst.vim
+
 let s:typstEmojiList = [
     \ ['abacus', '🧮'],
     \ ['abc', '🔤'],
@@ -1353,3 +1358,4 @@ for typmath in s:typstEmojiList
     exe "syn match typstMarkupEmoji '#emoji\.".typmath[0]."\\>' conceal cchar=".typmath[1]
 endfor
 
+" vim: sw=4 sts=4 et fdm=marker fdl=0 

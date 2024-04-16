@@ -1,6 +1,7 @@
 " Vim syntax file
 " Language: Typst
 " Maintainer: Kaj Munhoz Arfvidsson
+" Upstream: https://github.com/kaarmu/typst.vim
 
 if exists("b:current_syntax") | finish | endif
 
@@ -484,4 +485,4 @@ highlight default typstMarkupBoldItalic                 term=bold,italic        
 
 let b:current_syntax = "typst"
 
-" vim: foldmethod=marker foldlevel=0 tabstop=8 shiftwidth=4 softtabstop=4 expandtab
+" vim: sw=4 sts=4 et fdm=marker fdl=0 

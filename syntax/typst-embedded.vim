@@ -1,6 +1,7 @@
 " Vim syntax file
 " Language: Typst
 " Maintainer: Kaj Munhoz Arfvidsson
+" Upstream: https://github.com/kaarmu/typst.vim
 
 for s:name in g:typst_embedded_languages
     let s:include = ['syntax include'
@@ -19,3 +20,5 @@ for s:name in g:typst_embedded_languages
     unlet! b:current_syntax
     execute join(s:rule, ' ')
 endfor
+
+" vim: sw=4 sts=4 et fdm=marker fdl=0 
