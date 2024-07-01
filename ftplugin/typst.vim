@@ -21,7 +21,7 @@ if g:typst_conceal
     setlocal conceallevel=2
 endif
 
-setlocal commentstring=//%s
+setlocal commentstring=//\ %s
 setlocal comments=s1:/*,mb:*,ex:*/,://
 
 setlocal formatoptions+=croq
