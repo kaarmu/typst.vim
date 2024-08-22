@@ -10,6 +10,7 @@ function! typst#options#init() abort " {{{1
     call s:declare_option('typst_conceal', 0)
     call s:declare_option('typst_conceal_math', g:typst_conceal)
     call s:declare_option('typst_conceal_emoji', g:typst_conceal)
+    call s:declare_option('typst_syntax_use_lsp', 0)
     call s:declare_option('typst_auto_close_toc', 0)
     call s:declare_option('typst_auto_open_quickfix', 1)
     call s:declare_option('typst_embedded_languages', [])
