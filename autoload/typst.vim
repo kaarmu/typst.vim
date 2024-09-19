@@ -63,7 +63,7 @@ function! typst#TypstWatcherCb(channel, content, ...)
     endfor
     call setqflist(l:errors)
     if g:typst_auto_open_quickfix
-        execute empty(l:errors) ? 'cclose' : 'copen'
+        execute empty(l:errors) ? 'cclose' : 'copen | wincmd p'
     endif
 endfunction
 
