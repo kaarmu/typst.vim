@@ -95,6 +95,12 @@ call plug#end()
 - `g:typst_embedded_languages`:
     A list of languages that will be highlighted in code blocks. Typst is always highlighted.
     *Default:* `[]`
+- `g:typst_folding`:
+    Enable folding for typst heading
+    *Default:* `0`
+- `g:typst_foldnested`:
+    Enable nested foldings
+    *Default:* `1` 
 
 ### Commands
 

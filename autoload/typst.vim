@@ -289,3 +289,29 @@ function! typst#in_comment(...) abort
     endfor
     return l:ret
 endfunction
+
+
+function! typst#foldexpr()
+    let line = getline(v:lnum)
+
+    " Whenever the user wants to fold nested headers under the parent
+    let nested = g:typst_folding
+
+    " Regular headers
+    let depth = match(line, '\(^=\+\)\@<=\( .*$\)\@=')
+
+    " Do not fold nested regular headers
+    if depth > 1 && !nested
+        let depth = 1
+    endif
+
+    if depth > 0
+        " check syntax, it should be typstMarkupHeading
+        let syncode = synstack(v:lnum, 1)
+        if len(syncode) > 0 && synIDattr(syncode[0], 'name') ==# 'typstMarkupHeading'
+            return ">" . depth
+        endif
+    endif
+
+    return "="
+endfunction

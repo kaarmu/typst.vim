@@ -17,6 +17,12 @@ setlocal tabstop=8
 setlocal softtabstop=2
 setlocal shiftwidth=2
 
+if g:typst_folding
+    setlocal foldexpr=typst#foldexpr()
+    setlocal foldmethod=expr
+    let b:undo_ftplugin .= "|setl foldexpr< foldmethod<"
+endif
+
 if g:typst_conceal
     setlocal conceallevel=2
 endif
