@@ -18,8 +18,8 @@ syntax cluster typstCommon
 " Common > Comment {{{2
 syntax cluster typstComment
     \ contains=typstCommentBlock,typstCommentLine
-syntax match typstCommentBlock
-    \ #/\*\%(\_.\{-}\)\*/#
+syntax region typstCommentBlock
+    \ start="/\*" end="\*/" keepend
     \ contains=typstCommentTodo,@Spell
 syntax match typstCommentLine
     \ #//.*#
