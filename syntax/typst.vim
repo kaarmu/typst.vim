@@ -1,7 +1,8 @@
-" Vim syntax file
+" Vim syntax file using LSP
 " Language: Typst
 " Maintainer: Kaj Munhoz Arfvidsson
-" Upstream: https://github.com/kaarmu/typst.vim
+" Upstream: 
+"
 
 if exists("b:current_syntax") | finish | endif
 
@@ -18,8 +19,9 @@ syntax cluster typstCommon
 " Common > Comment {{{2
 syntax cluster typstComment
     \ contains=typstCommentBlock,typstCommentLine
-syntax match typstCommentBlock
-    \ #/\*\%(\_.\{-}\)\*/#
+syntax region typstCommentBlock
+    \ start="/\*"
+    \ end="\*/"
     \ contains=typstCommentTodo,@Spell
 syntax match typstCommentLine
     \ #//.*#
@@ -321,38 +323,48 @@ syntax region typstMarkupTermList
     \ contains=@typstMarkup
 
 " Bold & Italic
-syntax match typstMarkupBold
-    \ /\v(\w|\\)@1<!\*\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!\*/
-    \ contains=typstMarkupBoldRegion
-syntax match typstMarkupItalic
-    \ /\v(\w|\\)@1<!_\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!_/
-    \ contains=typstMarkupItalicRegion
-syntax match typstMarkupBoldItalic
-    \ contained
-    \ /\v(\w|\\)@1<![_\*]\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!\2/
-    \ contains=typstMarkupBoldRegion,typstMarkupItalicRegion
-if g:typst_conceal
-    syntax region typstMarkupBoldRegion
-        \ contained
-        \ transparent matchgroup=typstMarkupBold
-        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
-        \ concealends contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
-    syntax region typstMarkupItalicRegion
-        \ contained
-        \ transparent matchgroup=typstMarkupItalic
-        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
-        \ concealends contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+if g:typst_syntax_use_lsp
+    " See LSP's reference at https://github.com/nvarner/typst-lsp/blob/d76054776d50bade665b82d1f0308615f11d2580/editors/vscode/package.json#L168
+    highlight default link @lsp.mod.strong          typstMarkupBold
+    highlight default link @lsp.mod.emph            typstMarkupItalic
+    if g:typst_conceal
+        " Begin
+        syntax match typstMarkupBoldMarker "\*\ze\(\<\|\s\)" containedin=@lsp.mod.strong conceal contained
+    endif
 else
-    syntax region typstMarkupBoldRegion
+    syntax match typstMarkupBold
+        \ /\v(\w|\\)@1<!\*\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!\*/
+        \ contains=typstMarkupBoldRegion
+    syntax match typstMarkupItalic
+        \ /\v(\w|\\)@1<!_\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!_/
+        \ contains=typstMarkupItalicRegion
+    syntax match typstMarkupBoldItalic
         \ contained
-        \ transparent matchgroup=typstMarkupBold
-        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
-        \ contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
-    syntax region typstMarkupItalicRegion
-        \ contained
-        \ transparent matchgroup=typstMarkupItalic
-        \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
-        \ contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+        \ /\v(\w|\\)@1<![_\*]\S@=.{-}(\n.{-1,})*\S@1<=\\@1<!\2/
+        \ contains=typstMarkupBoldRegion,typstMarkupItalicRegion
+    if g:typst_conceal
+        syntax region typstMarkupBoldRegion
+            \ contained
+            \ transparent matchgroup=typstMarkupBold
+            \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
+            \ concealends contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+        syntax region typstMarkupItalicRegion
+            \ contained
+            \ transparent matchgroup=typstMarkupItalic
+            \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
+            \ concealends contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+    else
+        syntax region typstMarkupBoldRegion
+            \ contained
+            \ transparent matchgroup=typstMarkupBold
+            \ start=/\(^\|[^0-9a-zA-Z]\)\@<=\*/ end=/\*\($\|[^0-9a-zA-Z]\)\@=/
+            \ contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+        syntax region typstMarkupItalicRegion
+            \ contained
+            \ transparent matchgroup=typstMarkupItalic
+            \ start=/\(^\|[^0-9a-zA-Z]\)\@<=_/ end=/_\($\|[^0-9a-zA-Z]\)\@=/
+            \ contains=typstMarkupBoldItalic,typstMarkupLabel,@Spell
+    endif
 endif
 
 " Linebreak & Special Whitespace
