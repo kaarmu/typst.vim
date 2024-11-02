@@ -37,6 +37,11 @@ syntax cluster typstCode
             \ ,@typstCodeIdentifiers
             \ ,@typstCodeFunctions
             \ ,@typstCodeParens
+syntax region typstCodeRestOfLine
+    \ contained transparent
+    \ start=/./
+    \ matchgroup=Noise end=/\v%(;|$)/
+    \ contains=@typstCode
 
 " Code > Keywords {{{2
 syntax cluster typstCodeKeywords
@@ -61,14 +66,14 @@ syntax region typstCodeStatement
 syntax region typstCodeStatement
     \ contained
     \ matchgroup=typstCodeStatementWord start=/show/
-    \ matchgroup=Noise end=/\v%(:|$)/ keepend
+    \ matchgroup=Noise end=/:/
     \ contains=@typstCode
-    \ skipwhite nextgroup=@typstCode,typstCodeShowRocket
+    \ skipwhite nextgroup=typstCodeRestOfLine,typstCodeShowRocket
 syntax match typstCodeShowRocket
     \ contained
     \ /.*=>/
     \ contains=@typstCode
-    \ skipwhite nextgroup=@typstCode
+    \ skipwhite nextgroup=typstCodeRestOfLine
 
 " Code > Identifiers {{{2
 syntax cluster typstCodeIdentifiers
@@ -199,9 +204,9 @@ syntax region typstHashtagStatement
     \ contains=@typstCode
 syntax region typstHashtagStatement
     \ matchgroup=typstHashtagStatementWord start=/#show/
-    \ matchgroup=Noise end=/\v%(:|$)/ keepend
+    \ matchgroup=Noise end=/:/ 
     \ contains=@typstCode
-    \ skipwhite nextgroup=@typstCode,typstCodeShowRocket
+    \ skipwhite nextgroup=typstCodeRestOfLine,typstCodeShowRocket
 
 " Hashtag > Constants {{{2
 syntax cluster typstHashtagConstants
