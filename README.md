@@ -94,13 +94,15 @@ call plug#end()
     *Default:* `1`
 - `g:typst_embedded_languages`:
     A list of languages that will be highlighted in code blocks. Typst is always highlighted.
+    If language name is different from the syntax file name, you can use renaming, e.g. `'rs -> rust'`
+    (spaces around the arrow are mandatory).
     *Default:* `[]`
 - `g:typst_folding`:
     Enable folding for typst heading
     *Default:* `0`
 - `g:typst_foldnested`:
     Enable nested foldings
-    *Default:* `1` 
+    *Default:* `1`
 
 ### Commands
 

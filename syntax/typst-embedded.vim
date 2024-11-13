@@ -4,21 +4,23 @@
 " Upstream: https://github.com/kaarmu/typst.vim
 
 for s:name in g:typst_embedded_languages
+    let s:langname = substitute(s:name, '  *-> .*$', '', '')
+    let s:langfile = substitute(s:name, '^.* ->  *', '', '')
     let s:include = ['syntax include'
-                \   ,'@typstEmbedded_'..s:name
-                \   ,'syntax/'..s:name..'.vim']
+                \   ,'@typstEmbedded_'..s:langname
+                \   ,'syntax/'..s:langfile..'.vim']
     let s:rule = ['syn region'
-                \,s:name
+                \,s:langname
                 \,'matchgroup=Macro'
-                \,'start=/```'..s:name..'\>/ end=/```/' 
-                \,'contains=@typstEmbedded_'..s:name 
+                \,'start=/```'..s:langname..'\>/ end=/```/'
+                \,'contains=@typstEmbedded_'..s:langname
                 \,'keepend']
     if g:typst_conceal
         let s:rule += ['concealends']
-    endif 
+    endif
     execute 'silent! ' .. join(s:include, ' ')
     unlet! b:current_syntax
     execute join(s:rule, ' ')
 endfor
 
-" vim: sw=4 sts=4 et fdm=marker fdl=0 
+" vim: sw=4 sts=4 et fdm=marker fdl=0
