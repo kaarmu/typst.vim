@@ -30,7 +30,9 @@ endif
 setlocal commentstring=//\ %s
 setlocal comments=s1:/*,mb:*,ex:*/,://
 
-setlocal formatoptions+=croq
+setlocal formatoptions+=croqn
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatlistpat+=\\\|^\\s*[-+\]\\s\\+
 
 if has('win32')
     setlocal iskeyword=a-z,A-Z,48-57,_,-,128-167,224-235
