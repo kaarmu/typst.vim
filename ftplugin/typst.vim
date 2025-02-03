@@ -15,7 +15,9 @@ compiler typst
 setlocal expandtab
 setlocal tabstop=8
 setlocal softtabstop=2
-setlocal shiftwidth=2
+if !g:typst_preserve_shiftwidth
+    setlocal shiftwidth=2
+endif
 
 if g:typst_folding
     setlocal foldexpr=typst#foldexpr()
