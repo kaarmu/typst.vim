@@ -12,10 +12,10 @@ compiler typst
 " " If you're on typst <v0.8, workaround for https://github.com/typst/typst/issues/1937
 " set errorformat^=\/%f:%l:%c:%m
 
-setlocal expandtab
-setlocal tabstop=8
-setlocal softtabstop=2
-if !g:typst_preserve_shiftwidth
+if !exists("g:typst_recommended_style") || g:typst_recommended_style != 0
+    setlocal expandtab
+    setlocal tabstop=8
+    setlocal softtabstop=2
     setlocal shiftwidth=2
 endif
 
