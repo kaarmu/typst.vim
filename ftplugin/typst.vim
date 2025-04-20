@@ -20,6 +20,9 @@ setlocal shiftwidth=2
 if g:typst_folding
     setlocal foldexpr=typst#foldexpr()
     setlocal foldmethod=expr
+    if !exists("b:undo_ftplugin")
+        let b:undo_ftplugin = ""
+    endif
     let b:undo_ftplugin .= "|setl foldexpr< foldmethod<"
 endif
 
