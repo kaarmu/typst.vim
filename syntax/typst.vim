@@ -55,7 +55,7 @@ syntax keyword typstCodeKeyword
     \ not in and or return
 syntax region typstCodeStatement
     \ contained
-    \ matchgroup=typstCodeStatementWord start=/\v(let|set|import|include)>/
+    \ matchgroup=typstCodeStatementWord start=/\v(let|set|import|include|context)>/
     \ matchgroup=Noise end=/\v%(;|$)/
     \ contains=@typstCode
 syntax region typstCodeStatement
@@ -76,10 +76,10 @@ syntax cluster typstCodeIdentifiers
             \ ,typstCodeFieldAccess
 syntax match typstCodeIdentifier
     \ contained
-    \ /\v\w\k*>(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v\w\k*>(<%(let|set|show|import|include|context))@<![\.\[\(]@!/
 syntax match typstCodeFieldAccess
     \ contained
-    \ /\v\w\k*>(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v\w\k*>(<%(let|set|show|import|include|context))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Code > Functions {{{2
@@ -87,7 +87,7 @@ syntax cluster typstCodeFunctions
     \ contains=typstCodeFunction
 syntax match typstCodeFunction
     \ contained
-    \ /\v\w\k*>(<%(let|set|show|import|include))@<![\(\[]@=/
+    \ /\v\w\k*>(<%(let|set|show|import|include|context))@<![\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 syntax match typstCodeFunctionArgument
     \ contained
@@ -194,7 +194,7 @@ syntax match typstHashtagKeyword
     \ /\v#(return)>/
     \ skipwhite nextgroup=@typstCode
 syntax region typstHashtagStatement
-    \ matchgroup=typstHashtagStatementWord start=/\v#(let|set|import|include)>/
+    \ matchgroup=typstHashtagStatementWord start=/\v#(let|set|import|include|context)>/
     \ matchgroup=Noise end=/\v%(;|$)/
     \ contains=@typstCode
 syntax region typstHashtagStatement
@@ -214,9 +214,9 @@ syntax cluster typstHashtagIdentifiers
     \ contains=typstHashtagIdentifier
             \ ,typstHashtagFieldAccess
 syntax match typstHashtagIdentifier
-    \ /\v#\w\k*>(<%(let|set|show|import|include))@<![\.\[\(]@!/
+    \ /\v#\w\k*>(<%(let|set|show|import|include|context))@<![\.\[\(]@!/
 syntax match typstHashtagFieldAccess
-    \ /\v#\w\k*>(<%(let|set|show|import|include))@<!\.[\[\(]@!/
+    \ /\v#\w\k*>(<%(let|set|show|import|include|context))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 if g:typst_conceal_emoji
@@ -228,7 +228,7 @@ endif
 syntax cluster typstHashtagFunctions
     \ contains=typstHashtagFunction
 syntax match typstHashtagFunction
-    \ /\v#\w\k*>(<%(let|set|show|import|include))@<![\(\[]@=/
+    \ /\v#\w\k*>(<%(let|set|show|import|include|context))@<![\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 
 " Hashtag > Parens {{{2
