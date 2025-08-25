@@ -76,10 +76,10 @@ syntax cluster typstCodeIdentifiers
             \ ,typstCodeFieldAccess
 syntax match typstCodeIdentifier
     \ contained
-    \ /\v\w\k*>(<%(let|set|show|import|include|context))@<![\.\[\(]@!/
+    \ /\v<\K%(\k|-)*>(<%(let|set|show|import|include|context))@<![\.\[\(]@!/
 syntax match typstCodeFieldAccess
     \ contained
-    \ /\v\w\k*>(<%(let|set|show|import|include|context))@<!\.[\[\(]@!/
+    \ /\v<\K%(\k|-)*>(<%(let|set|show|import|include|context))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 " Code > Functions {{{2
@@ -87,7 +87,7 @@ syntax cluster typstCodeFunctions
     \ contains=typstCodeFunction
 syntax match typstCodeFunction
     \ contained
-    \ /\v\w\k*>(<%(let|set|show|import|include|context))@<![\(\[]@=/
+    \ /\v<\K%(\k|-)*>(<%(let|set|show|import|include|context))@<![\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 syntax match typstCodeFunctionArgument
     \ contained
@@ -97,43 +97,34 @@ syntax match typstCodeFunctionArgument
 " Code > Constants {{{2
 syntax cluster typstCodeConstants
     \ contains=typstCodeConstant
-            \ ,typstCodeNumberInteger
-            \ ,typstCodeNumberFloat
-            \ ,typstCodeNumberLength
-            \ ,typstCodeNumberAngle
-            \ ,typstCodeNumberRatio
-            \ ,typstCodeNumberFraction
+            \ ,typstCodeFloat
+            \ ,typstCodeInteger
             \ ,typstCodeString
             \ ,typstCodeLabel
 syntax match typstCodeConstant
     \ contained
     \ /\v<%(none|auto|true|false)-@!>/
-syntax match typstCodeNumberInteger
+syntax match typstCodeInteger
     \ contained
-    \ /\v<\d+>/
+    \ /\v<%(\d+|0b[01]+|0o[0-7]+|0x\x+)>/
 
-syntax match typstCodeNumberFloat
+" 1.0, 1., .0, 1.e6, 1.e-6, 1.e+6, 1e6
+syntax match typstCodeFloat
     \ contained
-    \ /\v<\d+\.\d*>/
-syntax match typstCodeNumberLength
-    \ contained
-    \ /\v<\d+(\.\d*)?(pt|mm|cm|in|em)>/
-syntax match typstCodeNumberAngle
-    \ contained
-    \ /\v<\d+(\.\d*)?(deg|rad)>/
-syntax match typstCodeNumberRatio
-    \ contained
-    \ /\v<\d+(\.\d*)?\%/
-syntax match typstCodeNumberFraction
-    \ contained
-    \ /\v<\d+(\.\d*)?fr>/
+    \ /\v<%(%(\d+\.\d*|\.\d+)%([eE][+-]?\d+)?|\d+[eE][+-]?\d+)/
+    \ nextgroup=typstCodeFloatRatio ,typstCodeFloatLength ,typstCodeFloatAngle ,typstCodeFloatFraction
+syntax match typstCodeFloatRatio contained /%/
+syntax match typstCodeFloatLength contained /\v(pt|mm|cm|in|em)>/
+syntax match typstCodeFloatAngle contained /\v(deg|rad)>/
+syntax match typstCodeFloatFraction contained /fr\>/
+
 syntax region typstCodeString
     \ contained
     \ start=/"/ skip=/\v\\\\|\\"/ end=/"/
     \ contains=@Spell
 syntax match typstCodeLabel
     \ contained
-    \ /\v\<\K%(\k*-*)*\>/
+    \ /\v\<%(\k|:|\.|-)*\>/
 
 " Code > Parens {{{2
 syntax cluster typstCodeParens
@@ -214,9 +205,9 @@ syntax cluster typstHashtagIdentifiers
     \ contains=typstHashtagIdentifier
             \ ,typstHashtagFieldAccess
 syntax match typstHashtagIdentifier
-    \ /\v#\w\k*>(<%(let|set|show|import|include|context))@<![\.\[\(]@!/
+    \ /\v#\K%(\k|-)*>(<%(let|set|show|import|include|context))@<![\.\[\(]@!/
 syntax match typstHashtagFieldAccess
-    \ /\v#\w\k*>(<%(let|set|show|import|include|context))@<!\.[\[\(]@!/
+    \ /\v#\K%(\k|-)*>(<%(let|set|show|import|include|context))@<!\.[\[\(]@!/
     \ nextgroup=typstCodeFieldAccess,typstCodeFunction
 
 if g:typst_conceal_emoji
@@ -228,7 +219,7 @@ endif
 syntax cluster typstHashtagFunctions
     \ contains=typstHashtagFunction
 syntax match typstHashtagFunction
-    \ /\v#\w\k*>(<%(let|set|show|import|include|context))@<![\(\[]@=/
+    \ /\v#\K%(\k|-)*>(<%(let|set|show|import|include|context))@<![\(\[]@=/
     \ nextgroup=typstCodeFunctionArgument
 
 " Hashtag > Parens {{{2
@@ -264,17 +255,17 @@ syntax cluster typstMarkupText
     \ contains=typstMarkupRawInline
             \ ,typstMarkupRawBlock
             \ ,typstMarkupLabel
-            \ ,typstMarkupReference
+            \ ,typstMarkupRefMarker
             \ ,typstMarkupUrl
             \ ,typstMarkupHeading
             \ ,typstMarkupBulletList
             \ ,typstMarkupEnumList
-            \ ,typstMarkupTermList
+            \ ,typstMarkupTermMarker
             \ ,typstMarkupBold
             \ ,typstMarkupItalic
             \ ,typstMarkupLinebreak
             \ ,typstMarkupNonbreakingSpace
-            \ ,typstMarkupShy
+            \ ,typstMarkupSoftHyphen
             \ ,typstMarkupDash
             \ ,typstMarkupEllipsis
 
@@ -298,9 +289,10 @@ runtime! syntax/typst-embedded.vim
 
 " Label & Reference
 syntax match typstMarkupLabel
-    \ /\v\<\K%(\k*-*)*\>/
-syntax match typstMarkupReference
-    \ /\v\@\K%(\k*-*)*/
+    \ /\v\<%(\k|:|\.|-)*\>/
+" Ref markers can't end in ':' or '.', but labels can
+syntax match typstMarkupRefMarker
+    \ /\v\@%(\k|:|\.|-)*%(\k|-)/
 
 " URL
 syntax match typstMarkupUrl
@@ -316,7 +308,7 @@ syntax match typstMarkupBulletList
     \ /\v^\s*-\s+/
 syntax match typstMarkupEnumList
     \ /\v^\s*(\+|\d+\.)\s+/
-syntax region typstMarkupTermList
+syntax region typstMarkupTermMarker
     \ oneline start=/\v^\s*\/\s/ end=/:/
     \ contains=@typstMarkup
 
@@ -360,10 +352,10 @@ syntax match typstMarkupLinebreak
     \ /\\\\/
 syntax match typstMarkupNonbreakingSpace
     \ /\~/
-syntax match typstMarkupShy
-    \ /-?/
 
 " Special Symbols
+syntax match typstMarkupSoftHyphen
+    \ /-?/
 syntax match typstMarkupDash
     \ /-\{2,3}/
 syntax match typstMarkupEllipsis
@@ -393,14 +385,15 @@ syntax cluster typstMath
             \ ,typstMathScripts
             \ ,typstMathQuote
 
+" a math identifier should be like \k without '_'
 syntax match typstMathIdentifier
-    \ /\a\a\+/
+    \ /\v<\a%(\a|\d)+>/
     \ contained
 syntax match typstMathFunction
-    \ /\a\a\+\ze(/
+    \ /\v<\a%(\a|\d)+\ze\(/
     \ contained
 syntax match typstMathNumber
-    \ /\<\d\+\>/
+    \ /\v<\d+>/
     \ contained
 syntax region typstMathQuote
     \ matchgroup=String start=/"/ skip=/\\"/ end=/"/
@@ -427,12 +420,12 @@ highlight default link typstCodeConditional         Conditional
 highlight default link typstCodeRepeat              Repeat
 highlight default link typstCodeKeyword             Keyword
 highlight default link typstCodeConstant            Constant
-highlight default link typstCodeNumberInteger       Number
-highlight default link typstCodeNumberFloat         Number
-highlight default link typstCodeNumberLength        Number
-highlight default link typstCodeNumberAngle         Number
-highlight default link typstCodeNumberRatio         Number
-highlight default link typstCodeNumberFraction      Number
+highlight default link typstCodeInteger             Number
+highlight default link typstCodeFloat               Number
+highlight default link typstCodeFloatLength         Number
+highlight default link typstCodeFloatAngle          Number
+highlight default link typstCodeFloatRatio          Number
+highlight default link typstCodeFloatFraction       Number
 highlight default link typstCodeString              String
 highlight default link typstCodeLabel               Structure
 highlight default link typstCodeStatementWord       Statement
@@ -459,17 +452,17 @@ highlight default link typstHashtagDollar           Noise
 highlight default link typstMarkupRawInline         Macro
 highlight default link typstMarkupRawBlock          Macro
 highlight default link typstMarkupLabel             Structure
-highlight default link typstMarkupReference         Structure
+highlight default link typstMarkupRefMarker         Structure
 highlight default link typstMarkupBulletList        Structure
 " highlight default link typstMarkupItalicError       Error
 " highlight default link typstMarkupBoldError         Error
 highlight default link typstMarkupEnumList          Structure
 highlight default link typstMarkupLinebreak         Structure
 highlight default link typstMarkupNonbreakingSpace  Structure
-highlight default link typstMarkupShy               Structure
+highlight default link typstMarkupSoftHyphen        Structure
 highlight default link typstMarkupDash              Structure
 highlight default link typstMarkupEllipsis          Structure
-highlight default link typstMarkupTermList          Structure
+highlight default link typstMarkupTermMarker        Structure
 highlight default link typstMarkupDollar            Noise
 
 " Highlighting > Custom Styling {{{2
