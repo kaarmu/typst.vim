@@ -20,6 +20,9 @@ function! typst#TypstWatch(...)
             let l:relative_path = l:file_path
         endif
         let l:output_path = '/tmp/typst_out/' . l:relative_path . '.pdf'
+        " Create output directory if it doesn't exist
+        let l:output_dir = fnamemodify(l:output_path, ':h')
+        call mkdir(l:output_dir, 'p')
         let l:cmd = l:cmd . ' "' . l:output_path . '"'
     endif
 
