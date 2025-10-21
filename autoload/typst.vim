@@ -9,8 +9,22 @@ function! typst#TypstWatch(...)
         \ . ' --diagnostic-format short'
         \ . " \"" . expand('%') . "\""
 
+    " Add custom output directory if enabled
+    if g:typst_output_dir
+        let l:file_path = expand('%:p')
+        let l:home_dir = expand('$HOME')
+        " Remove HOME directory prefix if present
+        if l:file_path =~# '^' . l:home_dir
+            let l:relative_path = substitute(l:file_path, '^' . l:home_dir . '/', '', '')
+        else
+            let l:relative_path = l:file_path
+        endif
+        let l:output_path = '/tmp/typst_out/' . l:relative_path . '.pdf'
+        let l:cmd = l:cmd . ' "' . l:output_path . '"'
+    endif
+
     if !empty(g:typst_pdf_viewer)
-        let l:cmd = l:cmd . ' --open ' . g:typst_pdf_viewer 
+        let l:cmd = l:cmd . ' --open ' . g:typst_pdf_viewer
     else
         let l:cmd = l:cmd . ' --open'
     endif
