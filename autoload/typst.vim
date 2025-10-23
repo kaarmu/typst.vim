@@ -19,6 +19,8 @@ function! typst#TypstWatch(...)
         else
             let l:relative_path = l:file_path
         endif
+        " Strip .typ or .typst extension before adding .pdf
+        let l:relative_path = substitute(l:relative_path, '\.\(typ\|typst\)$', '', '')
         let l:output_path = '/tmp/typst_out/' . l:relative_path . '.pdf'
         " Create output directory if it doesn't exist
         let l:output_dir = fnamemodify(l:output_path, ':h')
