@@ -75,7 +75,7 @@ call plug#end()
 - `g:typst_pdf_viewer`:
     Specifies pdf viewer that `typst watch --open` will use.
     *Default:* `''`
-- `g:typst_output_dir`:
+- `g:typst_output_to_tmp`:
     Redirect compiled PDFs to `/tmp/typst_out/` followed by the file's path relative to `$HOME`.
     *Default:* `0`
 - `g:typst_conceal`:

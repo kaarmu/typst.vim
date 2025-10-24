@@ -10,7 +10,7 @@ function! typst#TypstWatch(...)
         \ . " \"" . expand('%') . "\""
 
     " Add custom output directory if enabled
-    if g:typst_output_dir
+    if g:typst_output_to_tmp
         let l:file_path = expand('%:p')
         let l:home_dir = expand('$HOME')
         " Remove HOME directory prefix if present

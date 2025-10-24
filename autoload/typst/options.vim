@@ -7,7 +7,7 @@ function! typst#options#init() abort " {{{1
     call s:declare_option('typst_syntax_highlight', 1)
     call s:declare_option('typst_cmd', 'typst')
     call s:declare_option('typst_pdf_viewer', '')
-    call s:declare_option('typst_output_dir', 0)
+    call s:declare_option('typst_output_to_tmp', 0)
     call s:declare_option('typst_conceal', 0)
     call s:declare_option('typst_conceal_math', g:typst_conceal)
     call s:declare_option('typst_conceal_emoji', g:typst_conceal)
