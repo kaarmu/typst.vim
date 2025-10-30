@@ -7,7 +7,7 @@ function! typst#TypstWatch(...)
         \ . ' watch'
         \ . ' ' . join(a:000)
         \ . ' --diagnostic-format short'
-        \ . " \"" . expand('%') . "\""
+        \ . " '" . expand('%') . "'"
 
     " Add custom output directory if enabled
     if g:typst_output_to_tmp
