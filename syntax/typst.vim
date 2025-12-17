@@ -454,6 +454,7 @@ highlight default link typstMarkupRawBlock          Macro
 highlight default link typstMarkupLabel             Structure
 highlight default link typstMarkupRefMarker         Structure
 highlight default link typstMarkupBulletList        Structure
+highlight default link typstMarkupHeading           Title
 " highlight default link typstMarkupItalicError       Error
 " highlight default link typstMarkupBoldError         Error
 highlight default link typstMarkupEnumList          Structure
@@ -468,7 +469,6 @@ highlight default link typstMarkupDollar            Noise
 " Highlighting > Custom Styling {{{2
 highlight! Conceal ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE
 
-highlight default typstMarkupHeading                    term=underline,bold     cterm=underline,bold    gui=underline,bold
 highlight default typstMarkupUrl                        term=underline          cterm=underline         gui=underline
 highlight default typstMarkupBold                       term=bold               cterm=bold              gui=bold
 highlight default typstMarkupItalic                     term=italic             cterm=italic            gui=italic
